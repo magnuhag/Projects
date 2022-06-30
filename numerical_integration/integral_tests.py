@@ -7,11 +7,11 @@ def f(x):
     """
     Gaussian integral (-inf, inf) = sqrt(pi)
     """
-    return np.sin(x)/x
+    return np.exp(-x**2)
 
-integrate = integral_solver(f, 1, float("inf"), 1000, delta = 0.1)
+integrate = integral_solver(f, float("-inf"), float("inf"), 1000)
 integral_numerical = integrate.riemann()
-integral_analytical = np.pi/2
-integrate.plot(a = 1, b = 10)
+integral_analytical = np.sqrt(np.pi)
+integrate.plot(a = -2, b = 2)
 print(integral_numerical)
 print(integral_analytical)
