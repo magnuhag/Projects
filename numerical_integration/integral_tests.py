@@ -1,16 +1,17 @@
-from integrator import Integrator
+from integrator import integral_solver
 import numpy as np
+import matplotlib.pyplot as plt
+
 
 def f(x):
     """
     Gaussian integral (-inf, inf) = sqrt(pi)
     """
-    return np.exp(-x**2)
+    return np.sin(x)/x
 
-integrate = Integrator(f, float("-inf"), float("inf"), 1000)
+integrate = integral_solver(f, 1, float("inf"), 1000, delta = 0.1)
 integral_numerical = integrate.riemann()
-integral_analytical = np.sqrt(np.pi)
-integrate.plot(a = -4, b = 4)
+integral_analytical = np.pi/2
+integrate.plot(a = 1, b = 10)
 print(integral_numerical)
 print(integral_analytical)
-print(np.abs(integral_analytical-integral_numerical))
