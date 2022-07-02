@@ -16,14 +16,9 @@ class integral_solver:
 
         evaluated_function = np.zeros(self.n)
 
-
         if self.a == float("-inf") and self.b == float("inf"):
             t = np.linspace(-1+self.delta, 1-self.delta, self.n)
-            evaluated_function[0] = 0
-            evaluated_function[-1] = 0
             evaluated_function = self.f(t/(1-t**2))*(1+t**2)/(1-t**2)**2
-            evaluated_function[0] = 0
-            evaluated_function[-1] = 0 
 
         elif self.a != float("-inf") and self.b == float("inf"):
             t = np.linspace(0+self.delta, 1-self.delta, self.n)
