@@ -5,5 +5,5 @@ or simply solve difficult/ impossible integrals when the integral was simply "in
 This class uses the following transformations to compute integrals
 
 $$
-int\_{-\inf}^{\inf}
+\int\_{-\inf}^{\inf}
 $$
