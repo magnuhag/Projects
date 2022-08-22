@@ -12,6 +12,8 @@ The network is currently under development and you (the reader) may wish to keep
   -The use of lists as tensors. I do not like it.
   -The misuse of the word "tensor". This is a (rank 2) tensor
   $$
+  \begin{align}
   A^{ij}=\frac{\partial x_i'}{\partial x_k}\frac{\partial x_j'}{\partial x_l}A^{kl}
+  \end{align}
   $$
   
