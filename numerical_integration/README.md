@@ -19,5 +19,5 @@ $$
 For some reason these transforms performs poorly (not at all, really) when the integrand is a periodic function. Even when the integral in known to converge, like this one
 
 $$
-\int\_{0}^{\infty}{\frac{sin{x}}{x}dx}=\frac{\pi}{2}
+\int\_{-\infty}^{\infty}{\frac{sin{x}}{x}dx}=\pi
 $$
