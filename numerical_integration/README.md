@@ -5,5 +5,5 @@ or simply solve difficult/ impossible integrals when the integral was simply "in
 This class uses the following transformations to compute integrals
 
 $$
-\int\_{-\infty}^{\infty}
+\int\_{-\infty}^{\infty}{f(x) dx}=\int\_{-1}^1{f\Biggr(\frac{t}{1-t^2}\frac{1+t^2}{(1-t^2)^2}dt}
 $$
