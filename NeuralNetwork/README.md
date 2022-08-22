@@ -6,11 +6,17 @@ Currently the only optimizer available is mini-batch gradient descent. This may 
 In this repo I have provided two files. One is just the plain code for the network, and the second a Jupyter Notebook explaining not only the algorithms involved but derive (sort of) the mathematical expressions involved. It also involves a classification (MNIST) test usecase comparing this network to Tensorflow. The results may not shock you.
 
 The network is currently under development and you (the reader) may wish to keep that in mind. Several problems are currently known:
+
   -Divide by zero error when calculation some gradients and/ or Jacobians.
+  
   -Bad (no) handling of exploding and vanishing gradients.
+  
   -Bad formating and sometimes "non-Pythonic" code. 
+  
   -The use of lists as tensors. I do not like it.
+  
   -The misuse of the word "tensor". This is a (rank 2) tensor
+  
   $$
   A^{ij}=\frac{\partial x_i'}{\partial x_k}\frac{\partial x_j'}{\partial x_l}A^{kl}
   $$
