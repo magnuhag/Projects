@@ -15,10 +15,10 @@ The network is currently under development and you (the reader) may wish to keep
   
   -The use of lists as tensors. I do not like it.
   
-  -The misuse of the word "tensor". A tensor is a very spesific mathematical object, not just any n-dimentional array. A tensor $T_{j_1,\cdots,j_q}^{i_1,\cdots,i_p}$ is formally defined as:
+  -The misuse of the word "tensor". A tensor is a very spesific mathematical object, not just any n-dimentional array. An object $T_{j_1,\cdots,j_q}^{i_1,\cdots,i_p}$ is a tensor if the following transformation is true:
   
   $$
-  A^{ij}=\frac{\partial x_i'}{\partial x_k}\frac{\partial x_j'}{\partial x_l}A^{kl}
+  \hat{T}_{j_1,\cdots,j_q}^{i_1,\cdots,i_p}
   $$
   
   
