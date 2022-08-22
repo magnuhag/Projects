@@ -18,7 +18,7 @@ The network is currently under development and you (the reader) may wish to keep
   -The misuse of the word "tensor". A tensor is a very spesific mathematical object, not just any n-dimentional array. An object $T_{j_1,\cdots,j_q}^{i_1,\cdots,i_p}$ is a tensor if the following transformation is true:
   
   $$
-  \hat{T}_{j_1,\cdots,j_q}^{i_1,\cdots,i_p}
+  \hat{T}_{j'_1,\cdots,j'_q}^{i'_1,\cdots,i'_p}
   $$
   
   
