@@ -21,4 +21,4 @@ $$
 \hat{T}_{j'_1,\cdots,j'_q}^{i'_1,\cdots,i'_p}=(R^{-1})\_{i_1}^{i'_1}  \cdots  (R^{-1})\_{i_p}^{i'_p}T\_{j_1,\cdots,j_q}^{i_1,\cdots,i_p}R\_{j'_1}^{j_1}\cdots R\_{j'_q}^{j_q}
 $$
   
-  -A bunch of other minor stuff that will take the backseat for quite a while longer
+-A bunch of other minor (and just slightly less significant than the aforementioned) stuff that will take the backseat for quite a while longer  
