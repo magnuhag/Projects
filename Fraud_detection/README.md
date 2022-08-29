@@ -1,1 +1,1 @@
-In this Jupyter Notebook Iæve used AdaBoost, Gradient Boosting, and a neural network to try to make a descent fraud detection classifier. With varying results. The crux of the matter was to use principal component analysis to reduce the size of the dataset, then use a few different model selection tools to see if a good model could be build. We maxed out with an accuracy of $\approx 85\%$  
+In this Jupyter Notebook Iæve used AdaBoost, Gradient Boosting, and a neural network to try to make a descent fraud detection classifier. With varying results. 
