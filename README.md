@@ -1,10 +1,12 @@
 # Projects
 Hobby projects
 
-1) Neural Network:
+1) Fraud detection
+
+2) Neural Network:
   - Neural Network written from scratch in Python. I have also included a Jupyter Notebook for describing the math we're doing
   
-2) numerical_integration:
+3) numerical_integration:
   - Python class for doing improper integrals. Sketchy at best. 
   
  
