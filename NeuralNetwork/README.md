@@ -7,13 +7,13 @@ In this repo I have provided two files. One is just the plain code for the netwo
 
 The network is currently under development, and you (the reader) may wish to keep that in mind. Several problems are currently known:
 
-  -Divide by zero error when calculation some gradients and/ or Jacobians.
+  -Divide by zero error can occurr when calculating gradients and/ or Jacobians.
   
-  -Bad (no) handling of exploding and vanishing gradients.
+  -Bad (no) handling of exploding and vanishing gradients. Will add option to perform gradient clipping in future.
   
-  -Bad formatting and sometimes "non-Pythonic" code. 
+  -Bad formatting and sometimes "non-Pythonic" code. Deal with it.
   
-  -The use of lists as tensors. I do not like it.
+  -The use of lists as "tensors". I do not like it.
   
   -The misuse of the word "tensor". A tensor is a very specific mathematical object, not just any n-dimensional array. An object $T_{j_1,\cdots,j_q}^{i_1,\cdots,i_p}$ is a tensor if the following transformation is true (for an order $p+q$ tensor with $p$ contravariant indices and $q$ covariant indices):
   
