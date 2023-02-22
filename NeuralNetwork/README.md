@@ -9,7 +9,7 @@ The network is currently under development, and you (the reader) may wish to kee
 
   -Divide by zero error can occurr when calculating gradients and/ or Jacobians.
   
-  -Bad (no) handling of exploding and vanishing gradients. Will add option to perform gradient clipping in future.
+  -Bad (no) handling of exploding and vanishing gradients. 
   
   -Bad formatting and sometimes "non-Pythonic" code. Deal with it.
   
