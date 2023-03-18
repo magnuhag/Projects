@@ -7,13 +7,15 @@ In this repo I have provided two files. One is just the plain code for the netwo
 
 The network is currently under development, and you (the reader) may wish to keep that in mind. Several problems are currently known:
 
-  -Divide by zero error can occurr when calculating gradients and/ or Jacobians.
+  -Divide by zero error can (very dependent upon architecture of network) occurr when calculating gradients and/ or Jacobians.
   
-  -An attempt will be made to implement automatic differentiation directly, instead of indirectly; this is already done with Autograd, and is phenomenally inefficient 
+  -There is something wrong with the evaluation of the loss function. This is currently being fixed.
+  
+  -An attempt will be made to implement automatic differentiation directly instead of indirectly; this is already done with Autograd, and is phenomenally inefficient 
   
   -Bad (no) handling of exploding and vanishing gradients. 
   
-  -Bad formatting and sometimes "non-Pythonic" code. Deal with it.
+  -Bad formatting and sometimes "non-Pythonic" code. I'm in the process of learning PEP 8 OK?
   
   -The use of lists as "tensors". I do not like it.
   
@@ -24,3 +26,5 @@ $$
 $$
   
 -A bunch of other minor -- and just slightly less significant than the aforementioned -- stuff that will take the backseat for quite a while longer  
+
+-My tendancy to write sarcastic READMEs. I will try to work on this.
