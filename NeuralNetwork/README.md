@@ -9,7 +9,7 @@ The network is currently under development, and you (the reader) may wish to kee
 
   -Divide by zero error can (very dependent upon architecture of network) occurr when calculating gradients and/ or Jacobians.
   
-  -There is something wrong with the evaluation of the loss function. This is currently being fixed.
+  -There might be something wrong with the evaluation of the loss function. This is currently being testen, and possibly fixed.
   
   -An attempt will be made to implement automatic differentiation directly instead of indirectly; this is already done with Autograd, and is phenomenally inefficient 
   
