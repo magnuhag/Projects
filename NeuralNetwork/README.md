@@ -10,7 +10,7 @@ The network is currently under development, and you (the reader) may wish to kee
   -Divide by zero error can (very dependent upon architecture of network) occurr when calculating gradients and/ or Jacobians.
   
   
-  -An attempt will be made to implement automatic differentiation directly instead of indirectly; this is already done with Autograd, and is phenomenally inefficient. An attempt will be made to contruct Wengert lists and do reverse mode auto diff based on the network structure itself. Might be more efficient than calculating thousands of Jacobians.
+  -An attempt will be made to implement automatic differentiation directly instead of indirectly; this is already done with Autograd, and is phenomenally inefficient. An attempt will be made to contruct Wengert lists and do reverse mode auto diff based on the network structure itself. Might be more efficient than calculating thousands of Jacobians explicitly.
   
   -Bad (no) handling of exploding and vanishing gradients. 
   
