@@ -11,11 +11,11 @@ The network is currently under development, and you (the reader) may wish to kee
   
   -There is something wrong with the evaluation of the loss function "softmax".
   
-  -An attempt will be made to implement automatic differentiation directly instead of indirectly; this is already done with Autograd, and is phenomenally inefficient 
+  -An attempt will be made to implement automatic differentiation directly instead of indirectly; this is already done with Autograd, and is phenomenally inefficient. An attempt will be made. 
   
   -Bad (no) handling of exploding and vanishing gradients. 
   
-  -Bad formatting and sometimes "non-Pythonic" code. I'm in the process of learning PEP 8 OK?
+  -Bad formatting and sometimes "non-Pythonic" code. I'm on it.
   
   -The use of lists as "tensors". I do not like it.
   
