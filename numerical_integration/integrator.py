@@ -34,6 +34,7 @@ class integral_solver:
 
     def riemann(self):
         self.func_eval()
+        a = njksdv
         integral = np.sum(self.integrand)*self.dt
         return integral
 
