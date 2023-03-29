@@ -161,8 +161,8 @@ class NeuralNet:
     def train(self, X, y, epochs, loss, metric, batch_size = 10, num_iters = 100, eta_init = 10**(-4), decay = 0.1):
 
         """
-        args: X (feature matrix), y (targets), and epochs (type int).
-        kwargs: batch_size, num_iters, eta_init, decay. The "standard" values provided by the method
+        params: X (feature matrix), y (targets), and epochs (type int), batch_size, num_iters, eta_init, decay. 
+        The "standard" values provided by the method
         has been found by testing on one dataset. You should probably not use the values I´ve found.
         """
 
@@ -196,7 +196,7 @@ class NeuralNet:
 
     def metrics(self, y_hat, y, a):
         """
-        Takes args: y_hat, y, a (prediction, targets, activation in layer L)
+        Params: y_hat, y, a (prediction, targets, activation in layer L)
         Currently available metrics:
         "accuracy", and "MSE"
         """
@@ -218,73 +218,71 @@ class NeuralNet:
 
     def predict(self, X):
         """
-        Takes arg: X
+        params: X
         Does one feed forward pass and returns the output of last layer
         """
         self.feed_forward(X)
         return self.A[-1]
 
+if __name__ == "__main__":
+    from sklearn import datasets
+    import pandas as pd
+    from sklearn.model_selection import train_test_split
+    from sklearn.preprocessing import StandardScaler
+    from time import perf_counter
 
-from sklearn import datasets
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from time import perf_counter
+    def fix_data():
+        # download MNIST dataset
+        digits = datasets.load_digits()
 
-def fix_data():
-    # download MNIST dataset
-    digits = datasets.load_digits()
+        # define inputs and labels
+        inputs = digits.images
+        labels = digits.target
 
-    # define inputs and labels
-    inputs = digits.images
-    labels = digits.target
+        # one-hot encoding the targest
+        def to_categorical_numpy(integer_vector):
+            n_inputs = len(integer_vector)
+            n_categories = np.max(integer_vector) + 1
+            onehot_vector = np.zeros((n_inputs, n_categories))
+            onehot_vector[range(n_inputs), integer_vector] = 1
+            return onehot_vector
 
-    # one-hot encoding the targest
-    def to_categorical_numpy(integer_vector):
-        n_inputs = len(integer_vector)
-        n_categories = np.max(integer_vector) + 1
-        onehot_vector = np.zeros((n_inputs, n_categories))
-        onehot_vector[range(n_inputs), integer_vector] = 1
+        n_inputs = len(inputs)
+        inputs = inputs.reshape(n_inputs, -1)
+        X = inputs
+        Y = to_categorical_numpy(labels)
+        return X, Y
 
-        return onehot_vector
+    X, Y = fix_data()
 
+    X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.2 )
 
-    n_inputs = len(inputs)
-    inputs = inputs.reshape(n_inputs, -1)
-    X = inputs
-    Y = to_categorical_numpy(labels)
-    return X, Y
+    in_size = len(X[0])
+    out_size = len(y_test[0])
 
-X, Y = fix_data()
+    Net = NeuralNet()
+    #We don't need anything fancy for this demonstration. 1 hidden layer is enough
+    Net.add(in_size, "sigmoid", input_size = in_size)
+    Net.add(10, "softmax")
 
-X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.2 )
+    t_train_start = perf_counter()
 
-in_size = len(X[0])
-out_size = len(y_test[0])
+    #We're leaving batch size at a modest 10 as to not having to spend all day training the network
+    Net.train(X_train, y_train, 100, "categorical_cross", "accuracy", batch_size = 10, num_iters = 100)
 
-Net = NeuralNet()
-#We don't need anything fancy for this demonstration. 1 hidden layer is enough
-Net.add(in_size, "sigmoid", input_size = in_size)
-Net.add(10, "softmax")
+    t_train_stop = perf_counter()
 
-t_train_start = perf_counter()
+    print(t_train_stop-t_train_start)
 
-#We're leaving batch size at a modest 10 as to not having to spend all day training the network
-Net.train(X_train, y_train, 100, "categorical_cross", "accuracy", batch_size = 10, num_iters = 100)
-
-t_train_stop = perf_counter()
-
-print(t_train_stop-t_train_start)
-
-#Reminder of args and kwargs
-#train(self, X, y, epochs, loss, metric, batch_size = 10, num_iters = 50, eta_init = 10**(-4), decay = 0.1)
+    #Reminder of args and kwargs
+    #train(self, X, y, epochs, loss, metric, batch_size = 10, num_iters = 50, eta_init = 10**(-4), decay = 0.1)
 
 
-pred = Net.predict(X_test)
-s = 0
-for i in range(len(X_test)):
-    true = np.argmax(y_test[i])
-    guess = np.argmax(pred[i])
-    if true == guess:
-        s += 1
-print("test accuracy is " + str(s/len(y_test)))
+    pred = Net.predict(X_test)
+    s = 0
+    for i in range(len(X_test)):
+        true = np.argmax(y_test[i])
+        guess = np.argmax(pred[i])
+        if true == guess:
+            s += 1
+    print("test accuracy is " + str(s/len(y_test)))
