@@ -5,16 +5,6 @@ import matplotlib.pyplot as plt
 
 @dataclass
 class integral_solver:
-    """
-    
-    cdzsvdbdbdfgbsfgbfsgvfgbdgnfynnfvhjvnjdsfjkvnkfbnvkfgjbnkfgbkjfngkblkjhgfds
-    
-    Class for computing integrals numerically. Currently only supports riemann 
-    sums.
-    Params: f, a, b, n, delta
-    Delta is a weird parameter. Feel free to experiment, but do not go too close 
-    to machine precision.
-    """
     f: type(lambda x:x)
     a: float
     b: float
