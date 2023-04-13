@@ -17,6 +17,7 @@ $$
 $$
 
 These transforms are fairly limited when it comes to most rational functions I've encountered. Also there can be som problems with the limits where the integrand may be undefined (at $t=\pm 1$). As such I have elected to let the $t$-values approach the limits, but never equal them. This "approaching" of the limits is done with the parameter delta, and works like this:
+
 $$
 t \in [-1+delta, 1-delta]
 $$
