@@ -16,8 +16,8 @@ $$
 \int_{-\infty}^{a}f(x)dx=\int_{0}^{1}f\Biggr(a-\frac{1-t}{t}\Biggr)\frac{1}{t^2}dt
 $$
 
-These transforms are fairly limited when it comes to most rational functions I've encountered. Also there can be som problems with the limits where the integrand may be undefined (at $t=\pm 1$). As such I have elected to let the $t$-values approach the limits, but never equal them. This "approaching" of the limits is done with the parameter delta, and works like this:
+These transforms are fairly limited when it comes to most rational functions I've encountered. Also there can be som problems with the limits where the integrand may be undefined (at $t=\pm 1$). As such I have elected to let the $t$-values approach the limits, but never equal them. This "approaching" of the limits is done with the parameter delta ($\delta$), and works like this:
 
 $$
-t \in [-1+delta, 1-delta]
+t \in [-1+\delta, 1-\delta]
 $$
