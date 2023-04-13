@@ -22,4 +22,4 @@ $$
 t \in [-1+\delta, 1-\delta]
 $$
 
-The parameter `delta` is by default set to $\delta = 10^(-10)$ but can be altered as the user wishes.
+The parameter `delta` is by default set to $\delta = 10^{-10}$ but can be altered as the user wishes.
