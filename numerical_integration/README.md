@@ -21,3 +21,5 @@ These transforms are fairly limited when it comes to most rational functions I'v
 $$
 t \in [-1+\delta, 1-\delta]
 $$
+
+The parameter `delta` is by default set to $\delta = 10^(-10)$ but can be altered as the user wishes.
