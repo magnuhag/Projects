@@ -161,7 +161,7 @@ class NeuralNet:
     def train(self, X, y, epochs, loss, metric, batch_size = 10, num_iters = 100, eta_init = 10**(-4), decay = 0.1):
 
         """
-        params: X (feature matrix), y (targets), and epochs (type int), batch_size, num_iters, eta_init, decay. 
+        params: X (feature matrix), y (targets), and epochs (type int), batch_size, num_iters, eta_init, decay.
         The "standard" values provided by the method
         has been found by testing on one dataset. You should probably not use the values I´ve found.
         """
@@ -231,6 +231,14 @@ if __name__ == "__main__":
     from sklearn.preprocessing import StandardScaler
     from time import perf_counter
 
+    # one-hot encoding the targest
+    def to_categorical_numpy(integer_vector):
+        n_inputs = len(integer_vector)
+        n_categories = np.max(integer_vector) + 1
+        onehot_vector = np.zeros((n_inputs, n_categories))
+        onehot_vector[range(n_inputs), integer_vector] = 1
+        return onehot_vector
+        
     def fix_data():
         # download MNIST dataset
         digits = datasets.load_digits()
@@ -239,13 +247,7 @@ if __name__ == "__main__":
         inputs = digits.images
         labels = digits.target
 
-        # one-hot encoding the targest
-        def to_categorical_numpy(integer_vector):
-            n_inputs = len(integer_vector)
-            n_categories = np.max(integer_vector) + 1
-            onehot_vector = np.zeros((n_inputs, n_categories))
-            onehot_vector[range(n_inputs), integer_vector] = 1
-            return onehot_vector
+
 
         n_inputs = len(inputs)
         inputs = inputs.reshape(n_inputs, -1)
