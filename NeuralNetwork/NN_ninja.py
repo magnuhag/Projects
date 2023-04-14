@@ -148,7 +148,7 @@ class NeuralNet:
 
     def optimizer(self, X, eta):
         """
-        For the moment only supports mini-batch SGD. More will come (maybe)
+        For the moment only supports mini-batch gradient descent. More will come (maybe)
         """
 
         self.weights[0] -= eta * (X.T @ self.delta[0])
@@ -238,7 +238,7 @@ if __name__ == "__main__":
         onehot_vector = np.zeros((n_inputs, n_categories))
         onehot_vector[range(n_inputs), integer_vector] = 1
         return onehot_vector
-        
+
     def fix_data():
         # download MNIST dataset
         digits = datasets.load_digits()
