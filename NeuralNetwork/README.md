@@ -26,4 +26,4 @@ $$
   
 -A bunch of other minor -- and just slightly less significant than the aforementioned -- stuff that will take the backseat for quite a while longer  
 
--My tendancy to write sarcastic READMEs. I will try to work on this (no I won't). 
+-My tendancy to write sarcastic READMEs. I will *try* to work on this.
