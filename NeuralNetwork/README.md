@@ -3,18 +3,18 @@ The network allows for an arbitrary number of layers, and arbitrary layer sizes.
 By using Autograd the network can in principle use which ever loss and/ or activation function the user should wish, but as of now it is restricted to the ones supplied explicitly by the class. These restrictions might be altered/ lifted.
 Currently the only optimizer available is mini-batch gradient descent. This may also be subject to change.
 
-In this repo I have provided three files. One is just the plain code for the network, and a second a Jupyter Notebook explaining not only the algorithms involved, but derive (some of) the mathematical expressions involved. It also involves a classification (MNIST) test use case comparing this network to Tensorflow. The results may not shock you. 
+In this repo I have provided four (4) files. Two of these are just the plain code for the network and a run example, a third is a Jupyter Notebook explaining not only the algorithms involved, but derive (some of) the mathematical expressions involved. It also involves a classification (MNIST) test use case comparing this network to Tensorflow. The results may not shock you. 
 Finally I have also began working on my own automatic differentiation/ back propagation implementation to use with the neural network. This is currently being done in the Wengert_list notebook, the purpose of which is to make a notebook similar to the Neural Network notebook. The final implementation will ofcourse be code in a .py file. Or I might write it in C++ for added speed - time will tell. The reason for writing this implementation is because of how slow it is do to back propagation with Autograd the way I currently am; a whole bunch of Jacobians must be evaluated, and not using the structure of the network itself to implement automatic differentiation and back prop is insane. This implementation will be in development for some time.
 
-The network itself is also currently under development, and you (the reader) may wish to keep that in mind. Several problems are currently known:
+Since the network is currently in development, several problems are currently known:
 
-  -Divide by zero error can (very dependent upon architecture of network) occurr when calculating gradients and/ or Jacobians. Don't know why this is. Might fix itself with my homecooked automatic diff implementation.
+  -Divide by zero error can occurr (very dependent upon architecture of network) when calculating gradients and/ or Jacobians. Don't know why this is. Might fix itself with my homecooked automatic diff implementation.
   
   -Bad (no) handling of exploding and vanishing gradients. Will look into gradient clipping, and other techniques.
   
   -Bad formatting and sometimes "non-Pythonic" code. I'm on it.
   
-  -The network learns rather slowly. Will eventually add batch norm, dropout, and possibly more. All of this in the far future. Might also be a bug somehwere in the update of biases and/ or in loss function softmax. 
+  -The network learns rather slowly. Will eventually add batch norm, dropout, and possibly more. All of this in the far future. Might also be a bug somehwere in the update of biases. Or I use too small batches for training. 
   
   -The use of python lists as "tensors". That is, the weights between two layers are represented by matrices of the type $M\in\mathbb{R}^{n\times m}$. These matrices are contained in lists. This is because it is the easiest way to do it, at least that I've found. But I don't like the solution. This is a minor issue.
   
