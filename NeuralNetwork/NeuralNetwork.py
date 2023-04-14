@@ -242,7 +242,7 @@ class NeuralNet:
         func : function
                 the function specified by loss
                 parameter
-        """"
+        """
 
         if isinstance(loss, str):
             if loss == "MSE":
@@ -321,27 +321,27 @@ class NeuralNet:
         -------
         None
         """
-            #Assigning Jacobian and gradient functions as variables
-            dC, da = diff
-            #"Empty" (Zeros) array to hold Jacobian
-            d_act = np.zeros(len(self.Z[-1]))
-            #Empty array to hold derivative of cost function
-            dcda = d_act.copy()
-            #Empty array to hold delta^L
-            self.delta[-1] = np.zeros((len(self.Z[-1]), self.layers[-1]))
-            for i in range(len(self.Z[-1])):
-                #Calculate Jacobian and derivative for each training example in batch
-                d_act = da(self.Z[-1][i])
-                dcda = dC(self.A[-1][i], y[i])
-                #Jacobian of activation times derivative of cost function
-                self.delta[-1][i] = d_act @ dcda
+        #Assigning Jacobian and gradient functions as variables
+        dC, da = diff
+        #"Empty" (Zeros) array to hold Jacobian
+        d_act = np.zeros(len(self.Z[-1]))
+        #Empty array to hold derivative of cost function
+        dcda = d_act.copy()
+        #Empty array to hold delta^L
+        self.delta[-1] = np.zeros((len(self.Z[-1]), self.layers[-1]))
+        for i in range(len(self.Z[-1])):
+            #Calculate Jacobian and derivative for each training example in batch
+            d_act = da(self.Z[-1][i])
+            dcda = dC(self.A[-1][i], y[i])
+            #Jacobian of activation times derivative of cost function
+            self.delta[-1][i] = d_act @ dcda
 
-            for i in range(len(self.weights)-2, -1, -1):
-                #Gradient of activation function of hidden layer i. No need for Jacobian here
-                dfdz = egrad(self.act_funcs[i])
-                #Equation 2 is calculated in 2 parts. Just for ease of reading
-                t1 =  self.delta[i+1] @ self.weights[i+1].T
-                self.delta[i] = np.multiply(t1, dfdz(self.Z[i]))
+        for i in range(len(self.weights)-2, -1, -1):
+            #Gradient of activation function of hidden layer i. No need for Jacobian here
+            dfdz = egrad(self.act_funcs[i])
+            #Equation 2 is calculated in 2 parts. Just for ease of reading
+            t1 =  self.delta[i+1] @ self.weights[i+1].T
+            self.delta[i] = np.multiply(t1, dfdz(self.Z[i]))
 
     def optimizer(self, X, eta):
         """optimizer(X, eta)
