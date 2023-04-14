@@ -3,11 +3,95 @@ from autograd import jacobian
 from autograd import elementwise_grad as egrad
 
 class NeuralNet:
+    """
+    A class to create a feed forward neural network.
+    All layers are fully connected to adjacent layers.
+    In a layer l, all neurons share the same activation
+    function. Different layers can have different
+    activation functions. Layers are added sequatially
+    with the add method.
+    Backpropagation is done with the autograd module,
+    where jacobians and gradients are calculated using
+    automatic differentiation.
 
+
+    Attributes
+    ----------
+    None
+
+    Methods
+    -------
+    add(n_neurons, act_func, input_size = None):
+        Adds a dense layer of neurons fully connected to the
+        previous layer. User can spesify number of neurons
+        and activation function.
+
+    activation_function(act):
+        Contains activation functions. No need
+        for user to access this method.
+
+    loss_function(loss):
+        Contains loss functions. No need for user
+        to access this method.
+
+    feed_foward(X):
+        Feeds data through the network.
+        No need for user to access this method.
+
+    diff(C, A):
+        Calculates the gradient of C and
+        jacobian of A. No need for user
+        to access this method.
+
+    backprop(y, diff):
+        Performs backprop. No need for user
+        to access this method.
+
+    optimizer(X, eta):
+        Mini-batch gradient descent. No need for
+        user to access this method.
+
+    train(X, y, epochs, loss, metric, batch_size = 10,
+          num_iters = 100, eta_init = 10**(-4), decay = 0.1):
+        Trains the neural network.
+
+    metrics(y_hat, y, a):
+        Calculates matrics.
+
+    predict(X):
+        Does one feed forward pass and returns
+        the output.
+
+    """
     def __init__(self):
+        """__init__()
+        Creates the following instance attributes
+        ----------
+        layers : list
+            List to hold size of each layer
+        act_funcs : list
+            List to hold actavtion functions
+            of each layer
+        weights : list
+            List to hold weight arrays of each layer
+        biases : list
+            List to hold bias arrays of each layer
+        Z : list
+            List to hold input of each layer
+        A : list
+            List to hold activation of each layer
+        delta : list
+            list to hold delta for each layer
 
-        #Lists for holding the weight, bias, etc, matrices/ vectors.
-        #Call them (for the time being) "empty" tensors, if you're so inclined
+        Parameters
+        -------
+        None
+
+        Returns
+        -------
+        None
+        """
+
         self.layers = []
         self.act_funcs = []
         self.weights = []
@@ -17,10 +101,39 @@ class NeuralNet:
         self.delta = []
 
     def add(self, n_neurons, act_func, input_size = None):
+        """add(n_neurons, act_func, input_size = None)
+        Sequentially adds layer to network. If first layer
+        input_size must be supplied; this is not inferred.
+        Input size can be number of features in feature matrix, or
+        more generally the length of axis 1 of X.
+        That is, if X is
 
-        """
-        Sequantially adds layer to network in the order (in, hidden_1, ..., hidden_n, out). When adding input layer,
-        input size must be specified.
+        feature 1,   feature 2, ... , feature n
+
+        value 1,1    value 1,2        value 1,n
+        value 2,1    value 2,2        value 2,n
+        .            .                .
+        .            .                .
+        .            .                .
+        value m,1    value m,2        value m, n
+
+        the input_size value is equal to n.
+
+
+        Parameters
+        -------
+        n_neurons : int
+            number of neurons in layer
+        act_func : str
+            activation function to be used in
+            layer. See activation_function method
+            for available functions.
+        input_size : int
+            If not first layer, must be None.
+
+        Returns
+        -------
+        None
         """
 
         if isinstance(n_neurons, int) and n_neurons >= 1:
@@ -55,10 +168,32 @@ class NeuralNet:
         self.delta.append(0)
 
     def activation_function(self, act):
-        """
-        Currently available activation functions:
-        "simgoid", "RELU", "leaky_REALU", "softmax", and "linear"
+        """activation_function(act)
+        Available activation functions for use in
+        layers.
+        Available activation functions:
 
+        -sigmoid
+        -RELU
+        -leaky_RELU
+        -softmax
+        -linear (y=x)
+
+        !!softmax not supported as activation function in
+        anything but output layer!!
+
+        Parameters
+        -------
+        n_neurons : int
+            number of neurons in layer
+        act : str
+            name of activation function to be used in layer
+
+        Returns
+        -------
+        activ : function
+                the function specified by act
+                parameter
         """
 
         if act == "sigmoid":
@@ -76,7 +211,7 @@ class NeuralNet:
         elif act == "linear":
             activ = lambda x: x
 
-        #Yes, formatting
+        #Yes, formatting. Aslo exception handling. I'll get to it.
         else:
             print("-----------------------------------")
             print(" ")
@@ -89,8 +224,25 @@ class NeuralNet:
         return activ
 
     def loss_function(self, loss):
-        """Currently available loss functions:
-        "MSE", and "categorical_cross"""
+        """loss_function(loss)
+        Available loss functions for evaluating
+        error.
+        Available activation functions:
+
+        -MSE (mean squared error)
+        -categorical_cross (-entropy)
+
+        Parameters
+        -------
+        loss : str
+            loss function to be used
+
+        Returns
+        -------
+        func : function
+                the function specified by loss
+                parameter
+        """"
 
         if isinstance(loss, str):
             if loss == "MSE":
@@ -105,7 +257,18 @@ class NeuralNet:
         return func
 
     def feed_forward(self, X):
+        """feed_forward(X)
+        Does feed forward pass of input data
 
+        Parameters
+        -------
+        X : numpy array
+            Data to be passed though network
+
+        Returns
+        -------
+        None
+        """
         #Feeding in feature matrix
         self.Z[0] = X @ self.weights[0] + self.biases[0].T
         #Activation in first hidden layer
@@ -117,14 +280,47 @@ class NeuralNet:
             self.A[i] = self.act_funcs[i](self.Z[i])
 
     def diff(self, C, A):
+        """diff(C, A)
+        Calculates gradient and jacobian of
+        C and A (cost function, and activation in
+        output layer)
 
+        Parameters
+        -------
+        C : function
+            cost/ loss function
+        A : function
+            activation function in last layer
+
+        Returns
+        -------
+        dCda : function
+            gradient of C
+        dAdz : function
+            jacobian of A
+        """
         dCda = egrad(C)
         dAdz = jacobian(A)
 
         return dCda, dAdz
 
     def back_prop(self, y, diff):
+        """back_prop(y, diff)
+        Performs back propagation using
+        gradients and jacobians found by autograd.
 
+        Parameters
+        -------
+        y : numpy array
+            targets.
+        diff : tuple
+            holds the functions dC,da, calculated
+            in the diff method.
+
+        Returns
+        -------
+        None
+        """
             #Assigning Jacobian and gradient functions as variables
             dC, da = diff
             #"Empty" (Zeros) array to hold Jacobian
@@ -148,8 +344,20 @@ class NeuralNet:
                 self.delta[i] = np.multiply(t1, dfdz(self.Z[i]))
 
     def optimizer(self, X, eta):
-        """
-        For the moment only supports mini-batch gradient descent. More will come (maybe)
+        """optimizer(X, eta)
+        Updates weights and biases based on error made by
+        network. Currently only supports gradient descent.
+
+        Parameters
+        -------
+        X : numpy array
+            input data
+        eta : float
+            learning rate
+
+        Returns
+        -------
+        None
         """
 
         self.weights[0] -= eta * (X.T @ self.delta[0])
@@ -159,12 +367,40 @@ class NeuralNet:
             self.weights[i] -= eta * (self.A[i-1].T @ self.delta[i])
             self.biases[i] -= eta * np.sum(self.delta[i], axis = 0)
 
-    def train(self, X, y, epochs, loss, metric, batch_size = 10, num_iters = 100, eta_init = 10**(-4), decay = 0.1):
+    def train(self, X, y, epochs, loss, metric, batch_size = 10,
+              num_iters = 100, eta_init = 10**(-4), decay = 0.1):
+        """train(X, y, epochs, loss, metric, batch_size = 10,
+                 num_iters = 100, eta_init = 10**(-4), decay = 0.1)
 
-        """
-        params: X (feature matrix), y (targets), and epochs (type int), batch_size, num_iters, eta_init, decay.
-        The "standard" values provided by the method
-        has been found by testing on one dataset. You should probably not use the values I´ve found.
+        Trains the network. By doing feed forward, then backporp, repeat.
+
+
+        Parameters
+        -------
+        X : numpy array
+            data the network is supposed to learn
+        y : numpy array
+            targets
+        epochs : float
+            number of training epochs
+        loss : str
+            loss function to be used. See loss_function
+            method for available ones
+        metric : str
+            Which metric to use. See metric method for
+            available ones.
+        batch_size : int
+            Batch size for forward passes
+        num_iters : int
+            number of iterations per epoch
+        eta_init : float
+            initial learning rate
+        decay : float
+            how fast learning rate decreases.
+
+        Returns
+        -------
+        None
         """
 
         diff = self.diff(self.loss_function(loss), self.act_funcs[-1])
@@ -194,13 +430,26 @@ class NeuralNet:
             loss_val = np.mean(self.loss_function(loss)(predicted, y_mini))
             print("mean loss = %.3f ---------- %s = %.2f at epoch %g" %(loss_val, metric, metric_val, i))
 
-
     def metrics(self, y_hat, y, a):
+        """metrics(y_hat, y, a)
+        Calculates metric. Available ones:
+        -accuracy
+        -MSE (mean squared error)
+
+        Parameters
+        -------
+        y_hat : numpy array
+            output of network
+        y : numpy array
+            targets
+        a : str
+            name of metric
+
+        Returns
+        -------
+        metric : numpy array
         """
-        Params: y_hat, y, a (prediction, targets, activation in layer L)
-        Currently available metrics:
-        "accuracy", and "MSE"
-        """
+
         if a == "accuracy":
             s = 0
             for i in range(len(y)):
@@ -218,9 +467,19 @@ class NeuralNet:
 
 
     def predict(self, X):
-        """
-        params: X
-        Does one feed forward pass and returns the output of last layer
+        """predict(X)
+
+        Does a feed forward pass of X
+
+        Parameters
+        -------
+        X : numpy array
+            data to be passesd
+
+        Returns
+        -------
+        A : numpy array
+            activation in last layer
         """
         self.feed_forward(X)
         return self.A[-1]
