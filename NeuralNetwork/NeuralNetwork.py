@@ -192,7 +192,7 @@ class NeuralNet:
             predicted = self.predict(X_mini)
             metric_val = np.mean(self.metrics(predicted, y_mini, metric))
             loss_val = np.mean(self.loss_function(loss)(predicted, y_mini))
-            #Yes, formatting
+            print("mean loss = %.3f ---------- %s = %.2f at epoch %g" %(loss_val, metric, metric_val, i))
 
 
     def metrics(self, y_hat, y, a):

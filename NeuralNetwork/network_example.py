@@ -1,8 +1,11 @@
-from sklearn import datasets
+from time import perf_counter
+
+import numpy as np
 import pandas as pd
+from sklearn import datasets
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from time import perf_counter
+
 from NeuralNetwork import NeuralNet
 
 # one-hot encoding the targest
@@ -16,13 +19,9 @@ def to_categorical_numpy(integer_vector):
 def fix_data():
     # download MNIST dataset
     digits = datasets.load_digits()
-
     # define inputs and labels
     inputs = digits.images
     labels = digits.target
-
-
-
     n_inputs = len(inputs)
     inputs = inputs.reshape(n_inputs, -1)
     X = inputs
@@ -30,7 +29,6 @@ def fix_data():
     return X, Y
 
 X, Y = fix_data()
-
 X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size = 0.2 )
 
 in_size = len(X[0])
