@@ -408,12 +408,12 @@ class NeuralNet:
             for j in range(numIters):
                 eta1 = eta(etaInit, j, decay)
                 #Randomly choose datapoints to use as mini-batches
-                chosen_datapoints = np.random.choice(dataIndices, 
+                chosenDatapoints = np.random.choice(dataIndices, 
                                                      size = batchSize, 
                                                      replace = False)
                 #Making mini-batches
-                XMini = X[chosen_datapoints]
-                yMini = y[chosen_datapoints]
+                XMini = X[chosenDatapoints]
+                yMini = y[chosenDatapoints]
                 #Feed forward
                 self.feed_forward(XMini)
                 #Backprop
