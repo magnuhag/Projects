@@ -29,27 +29,29 @@ def fix_data():
     return X, Y
 
 X, Y = fix_data()
-XTrain, XTest, yTrain, yTest = train_test_split(X, Y, test_size = 0.2 )
+XTrain, XTest, yTrain, yTest = train_test_split(X, Y, test_size = 0.2)
 
 inSize = len(X[0])
 out_size = len(yTest[0])
 
 Net = NeuralNet()
-#We don't need anything fancy for this demonstration. 1 hidden layer is enough
+#We don't need anything fancy for this demonstration
 Net.add(inSize, "sigmoid", inputSize = inSize)
 Net.add(10, "softmax")
 
 tTrainStart = perf_counter()
 
 #We're leaving batch size at a modest 10 as to not having to spend all day training the network
-Net.train(XTrain, yTrain, 100, "categorical_cross", "accuracy", batchSize = 10, numIters = 100)
+Net.train(XTrain, yTrain, 100, "categorical_cross", "accuracy", 
+          batchSize = 10, numIters = 100)
 
 tTrainStop = perf_counter()
 
 print(tTrainStop-tTrainStart)
 
 #Reminder of args and kwargs
-#train(self, X, y, epochs, loss, metric, batchSize = 10, numIters = 50, etaInit = 10**(-4), decay = 0.1)
+#train(self, X, y, epochs, loss, metric, batchSize = 10, numIters = 50,
+#      etaInit = 10**(-4), decay = 0.1)
 
 
 pred = Net.predict(XTest)

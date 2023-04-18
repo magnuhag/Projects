@@ -140,11 +140,13 @@ class NeuralNet:
             self.layers.append(nNeurons)
 
         else:
-            #Should be obvious to anyone attempting to use this class. Still: might catch a typo
-            raise TypeError("nNeurons must be of type int and greater than or equal to 1")
+            #Should be obvious to anyone attempting to use this class. 
+            # Still: might catch a typo
+            raise TypeError("nNeurons must be of type int and greater\
+                             than or equal to 1")
 
         if isinstance(inputSize, int):
-            #I haven't really discussed initialization of weights and biases. Upsies
+            #Haven't really discussed initialization
             self.weights.append(np.random.randn(inputSize, nNeurons)*0.01)
 
         elif isinstance(inputSize, type(None)):
@@ -239,7 +241,7 @@ class NeuralNet:
 
         if isinstance(loss, str):
             if loss == "MSE":
-                func = lambda x, y: np.mean((x - y)**2, axis = 0, keepdims = True)
+                func = lambda x, y: np.mean((x - y)**2, axis = 0)
             elif loss == "categorical_cross":
                 func = lambda x,y: -np.sum(y*np.log(x), axis = 0)
             else:
@@ -330,7 +332,7 @@ class NeuralNet:
             self.delta[-1][i] = dAct @ dcda
 
         for i in range(len(self.weights)-2, -1, -1):
-            #Gradient of activation function of hidden layer i. No need for Jacobian here
+            #Gradient of activation function of hidden layer i
             dfdz = egrad(self.actFuncs[i])
             #Equation 2 is calculated in 2 parts. Just for ease of reading
             t1 =  self.delta[i+1] @ self.weights[i+1].T
@@ -399,14 +401,16 @@ class NeuralNet:
         diff = self.diff(self.loss_function(loss), self.actFuncs[-1])
 
         dataIndices = len(X)
-        #eta function (not the Dirichlet one): for decreasing learning rate as training progresses
+        #eta function: for decreasing learning rate as training progresses
         eta = lambda etaInit, iteration, decay: etaInit/(1+decay*iteration)
 
         for i in range(1, epochs+1):
             for j in range(numIters):
                 eta1 = eta(etaInit, j, decay)
                 #Randomly choose datapoints to use as mini-batches
-                chosen_datapoints = np.random.choice(dataIndices, size = batchSize, replace = False)
+                chosen_datapoints = np.random.choice(dataIndices, 
+                                                     size = batchSize, 
+                                                     replace = False)
                 #Making mini-batches
                 XMini = X[chosen_datapoints]
                 yMini = y[chosen_datapoints]
@@ -421,7 +425,8 @@ class NeuralNet:
             predicted = self.predict(XMini)
             metricVal = np.mean(self.metrics(predicted, yMini, metric))
             lossVal = np.mean(self.loss_function(loss)(predicted, yMini))
-            print("mean loss = %.3f ---------- %s = %.2f at epoch %g" %(lossVal, metric, metricVal, i))
+            print("mean loss = %.3f ---------- %s = %.2f at epoch %g" 
+                  %(lossVal, metric, metricVal, i))
 
     def metrics(self, yHat, y, a):
         """metrics(yHat, y, a)
