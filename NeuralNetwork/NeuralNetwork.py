@@ -21,7 +21,7 @@ class NeuralNet:
 
     Methods
     -------
-    add(n_neurons, act_func, input_size = None):
+    add(nNeurons, actFunc, inputSize = None):
         Adds a dense layer of neurons fully connected to the
         previous layer. User can spesify number of neurons
         and activation function.
@@ -51,11 +51,11 @@ class NeuralNet:
         Mini-batch gradient descent. No need for
         user to access this method.
 
-    train(X, y, epochs, loss, metric, batch_size = 10,
-          num_iters = 100, eta_init = 10**(-4), decay = 0.1):
+    train(X, y, epochs, loss, metric, batchSize = 10,
+          numIters = 100, etaInit = 10**(-4), decay = 0.1):
         Trains the neural network.
 
-    metrics(y_hat, y, a):
+    metrics(yHat, y, a):
         Calculates matrics.
 
     predict(X):
@@ -69,7 +69,7 @@ class NeuralNet:
         ----------
         layers : list
             List to hold size of each layer
-        act_funcs : list
+        actFuncs : list
             List to hold actavtion functions
             of each layer
         weights : list
@@ -93,17 +93,17 @@ class NeuralNet:
         """
 
         self.layers = []
-        self.act_funcs = []
+        self.actFuncs = []
         self.weights = []
         self.biases = []
         self.Z = []
         self.A = []
         self.delta = []
 
-    def add(self, n_neurons, act_func, input_size = None):
-        """add(n_neurons, act_func, input_size = None)
+    def add(self, nNeurons, actFunc, inputSize = None):
+        """add(nNeurons, actFunc, inputSize = None)
         Sequentially adds layer to network. If first layer
-        input_size must be supplied; this is not inferred.
+        inputSize must be supplied; this is not inferred.
         Input size can be number of features in feature matrix, or
         more generally the length of axis 1 of X.
         That is, if X is
@@ -117,18 +117,18 @@ class NeuralNet:
         .            .                .
         value m,1    value m,2        value m, n
 
-        the input_size value is equal to n.
+        the inputSize value is equal to n.
 
 
         Parameters
         -------
-        n_neurons : int
+        nNeurons : int
             number of neurons in layer
-        act_func : str
+        actFunc : str
             activation function to be used in
             layer. See activation_function method
             for available functions.
-        input_size : int
+        inputSize : int
             If not first layer, must be None.
 
         Returns
@@ -136,30 +136,30 @@ class NeuralNet:
         None
         """
 
-        if isinstance(n_neurons, int) and n_neurons >= 1:
-            self.layers.append(n_neurons)
+        if isinstance(nNeurons, int) and nNeurons >= 1:
+            self.layers.append(nNeurons)
 
         else:
             #Should be obvious to anyone attempting to use this class. Still: might catch a typo
-            raise TypeError("n_neurons must be of type int and greater than or equal to 1")
+            raise TypeError("nNeurons must be of type int and greater than or equal to 1")
 
-        if isinstance(input_size, int):
+        if isinstance(inputSize, int):
             #I haven't really discussed initialization of weights and biases. Upsies
-            self.weights.append(np.random.randn(input_size, n_neurons)*0.01)
+            self.weights.append(np.random.randn(inputSize, nNeurons)*0.01)
 
-        elif isinstance(input_size, type(None)):
-            self.weights.append(np.random.randn(self.layers[-2], n_neurons)*0.01)
+        elif isinstance(inputSize, type(None)):
+            self.weights.append(np.random.randn(self.layers[-2], nNeurons)*0.01)
         #Errrrr, I'll get back to this
         else:
             raise TypeError("Errr")
 
-        if isinstance(act_func, str):
-            function = self.activation_function(act_func)
-            self.act_funcs.append(function)
+        if isinstance(actFunc, str):
+            function = self.activation_function(actFunc)
+            self.actFuncs.append(function)
         else:
-            raise TypeError("act_func argument must be of type str")
+            raise TypeError("actFunc argument must be of type str")
 
-        self.biases.append(np.random.randn(n_neurons)*0.01)
+        self.biases.append(np.random.randn(nNeurons)*0.01)
 
         #For each added layer we append 0 to the lists
         #so that they get the appropriate length
@@ -184,7 +184,7 @@ class NeuralNet:
 
         Parameters
         -------
-        n_neurons : int
+        nNeurons : int
             number of neurons in layer
         act : str
             name of activation function to be used in layer
@@ -210,16 +210,9 @@ class NeuralNet:
 
         elif act == "linear":
             activ = lambda x: x
-
-        #Yes, formatting. Aslo exception handling. I'll get to it.
+        
         else:
-            print("-----------------------------------")
-            print(" ")
-            print(str(act) + " is an invalid activation function name")
-            print(" ")
-            print("-----------------------------------")
-
-            return
+            raise NameError("No activation function named %s" %act)
 
         return activ
 
@@ -272,12 +265,12 @@ class NeuralNet:
         #Feeding in feature matrix
         self.Z[0] = X @ self.weights[0] + self.biases[0].T
         #Activation in first hidden layer
-        self.A[0] = self.act_funcs[0](self.Z[0])
+        self.A[0] = self.actFuncs[0](self.Z[0])
 
         for i in range(1, len(self.weights)):
             #Feeding forward
             self.Z[i] = self.A[i-1] @ self.weights[i] + self.biases[i].T
-            self.A[i] = self.act_funcs[i](self.Z[i])
+            self.A[i] = self.actFuncs[i](self.Z[i])
 
     def diff(self, C, A):
         """diff(C, A)
@@ -324,21 +317,21 @@ class NeuralNet:
         #Assigning Jacobian and gradient functions as variables
         dC, da = diff
         #"Empty" (Zeros) array to hold Jacobian
-        d_act = np.zeros(len(self.Z[-1]))
+        dAct = np.zeros(len(self.Z[-1]))
         #Empty array to hold derivative of cost function
-        dcda = d_act.copy()
+        dcda = dAct.copy()
         #Empty array to hold delta^L
         self.delta[-1] = np.zeros((len(self.Z[-1]), self.layers[-1]))
         for i in range(len(self.Z[-1])):
             #Calculate Jacobian and derivative for each training example in batch
-            d_act = da(self.Z[-1][i])
+            dAct = da(self.Z[-1][i])
             dcda = dC(self.A[-1][i], y[i])
             #Jacobian of activation times derivative of cost function
-            self.delta[-1][i] = d_act @ dcda
+            self.delta[-1][i] = dAct @ dcda
 
         for i in range(len(self.weights)-2, -1, -1):
             #Gradient of activation function of hidden layer i. No need for Jacobian here
-            dfdz = egrad(self.act_funcs[i])
+            dfdz = egrad(self.actFuncs[i])
             #Equation 2 is calculated in 2 parts. Just for ease of reading
             t1 =  self.delta[i+1] @ self.weights[i+1].T
             self.delta[i] = np.multiply(t1, dfdz(self.Z[i]))
@@ -367,10 +360,10 @@ class NeuralNet:
             self.weights[i] -= eta * (self.A[i-1].T @ self.delta[i])
             self.biases[i] -= eta * np.sum(self.delta[i], axis = 0)
 
-    def train(self, X, y, epochs, loss, metric, batch_size = 10,
-              num_iters = 100, eta_init = 10**(-4), decay = 0.1):
-        """train(X, y, epochs, loss, metric, batch_size = 10,
-                 num_iters = 100, eta_init = 10**(-4), decay = 0.1)
+    def train(self, X, y, epochs, loss, metric, batchSize = 10,
+              numIters = 100, etaInit = 10**(-4), decay = 0.1):
+        """train(X, y, epochs, loss, metric, batchSize = 10,
+                 numIters = 100, etaInit = 10**(-4), decay = 0.1)
 
         Trains the network. By doing feed forward, then backporp, repeat.
 
@@ -389,11 +382,11 @@ class NeuralNet:
         metric : str
             Which metric to use. See metric method for
             available ones.
-        batch_size : int
+        batchSize : int
             Batch size for forward passes
-        num_iters : int
+        numIters : int
             number of iterations per epoch
-        eta_init : float
+        etaInit : float
             initial learning rate
         decay : float
             how fast learning rate decreases.
@@ -403,42 +396,42 @@ class NeuralNet:
         None
         """
 
-        diff = self.diff(self.loss_function(loss), self.act_funcs[-1])
+        diff = self.diff(self.loss_function(loss), self.actFuncs[-1])
 
-        data_indices = len(X)
+        dataIndices = len(X)
         #eta function (not the Dirichlet one): for decreasing learning rate as training progresses
-        eta = lambda eta_init, iteration, decay: eta_init/(1+decay*iteration)
+        eta = lambda etaInit, iteration, decay: etaInit/(1+decay*iteration)
 
         for i in range(1, epochs+1):
-            for j in range(num_iters):
-                eta1 = eta(eta_init, j, decay)
+            for j in range(numIters):
+                eta1 = eta(etaInit, j, decay)
                 #Randomly choose datapoints to use as mini-batches
-                chosen_datapoints = np.random.choice(data_indices, size = batch_size, replace = False)
+                chosen_datapoints = np.random.choice(dataIndices, size = batchSize, replace = False)
                 #Making mini-batches
-                X_mini = X[chosen_datapoints]
-                y_mini = y[chosen_datapoints]
+                XMini = X[chosen_datapoints]
+                yMini = y[chosen_datapoints]
                 #Feed forward
-                self.feed_forward(X_mini)
+                self.feed_forward(XMini)
                 #Backprop
-                self.back_prop(y_mini, diff)
+                self.back_prop(yMini, diff)
                 #Update weights and biases
-                self.optimizer(X_mini, eta(eta_init, j, decay))
+                self.optimizer(XMini, eta(etaInit, j, decay))
 
             #Make a prediction and print mean of performance and loss of mini-batch
-            predicted = self.predict(X_mini)
-            metric_val = np.mean(self.metrics(predicted, y_mini, metric))
-            loss_val = np.mean(self.loss_function(loss)(predicted, y_mini))
-            print("mean loss = %.3f ---------- %s = %.2f at epoch %g" %(loss_val, metric, metric_val, i))
+            predicted = self.predict(XMini)
+            metricVal = np.mean(self.metrics(predicted, yMini, metric))
+            lossVal = np.mean(self.loss_function(loss)(predicted, yMini))
+            print("mean loss = %.3f ---------- %s = %.2f at epoch %g" %(lossVal, metric, metricVal, i))
 
-    def metrics(self, y_hat, y, a):
-        """metrics(y_hat, y, a)
+    def metrics(self, yHat, y, a):
+        """metrics(yHat, y, a)
         Calculates metric. Available ones:
         -accuracy
         -MSE (mean squared error)
 
         Parameters
         -------
-        y_hat : numpy array
+        yHat : numpy array
             output of network
         y : numpy array
             targets
@@ -454,16 +447,16 @@ class NeuralNet:
             s = 0
             for i in range(len(y)):
                 true = np.argmax(y[i])
-                pred = np.argmax(y_hat[i])
+                pred = np.argmax(yHat[i])
                 if true == pred:
                     s += 1
                 else:
                     continue
 
-            return s/len(y_hat)
+            return s/len(yHat)
 
         elif a == "MSE":
-            return np.mean((y-y_hat)**2, axis = 0)
+            return np.mean((y-yHat)**2, axis = 0)
 
 
     def predict(self, X):
