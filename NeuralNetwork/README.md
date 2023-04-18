@@ -1,6 +1,6 @@
 A simple feed forward neural network written from scratch as a class in Python. 
 The network allows for an arbitrary number of layers, and arbitrary layer sizes. 
-By using Autograd the network can in principle use which ever loss and/ or activation function the user should wish, but as of now it is restricted to the ones supplied explicitly by the class. These restrictions might be altered/ lifted.
+By using `Autograd` the network can in principle use which ever loss and/ or activation function the user should wish, but as of now it is restricted to the ones supplied explicitly by the class. These restrictions might be altered/ lifted.
 Currently the only optimizer available is mini-batch gradient descent. This may also be subject to change.
 
 In this repo I have provided four (4) files. Two of these are just the plain code for the network (`NeuralNetwork` and `NNC.py`- these are identical but for the docstrings in the former) plus a run example in `network_example.py`. A third is a Jupyter Notebook `NeuralNetwork.ipynb` explaining not only the algorithms involved, but derive (some of) the mathematical expressions involved. It also involves a classification (MNIST) test use case comparing this network to Tensorflow. The results may not shock you. 
