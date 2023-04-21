@@ -20,7 +20,7 @@
   I_3 = \int_{-\infty}^{a}{f(x) \\, dx}
   $$
   
-    The class can also compute proper integrals.
+   The class can also compute proper integrals.
   
 
 
