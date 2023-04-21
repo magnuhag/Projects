@@ -16,7 +16,7 @@ Hobby projects
   $$
   
   $$
-  I_1 = \int_{-\infty}^{a}{f(x)  dx}
+  I_3 = \int_{-\infty}^{a}{f(x)  dx}
   $$
   
  
