@@ -19,9 +19,5 @@
   $$
   I_3 = \int_{-\infty}^{a}{f(x) \\, dx}
   $$
-  
-   The class can also compute proper integrals.
-  
-
 
 None of these are by any means finished.
