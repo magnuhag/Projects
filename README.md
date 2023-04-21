@@ -12,11 +12,11 @@ Hobby projects
   $$
   
   $$
-  I_2 = \int_{a}^{\infty}{f(x)  dx}
+  I_2 = \int_{a}^{\infty}{f(x)  \\, dx}
   $$
   
   $$
-  I_3 = \int_{-\infty}^{a}{f(x)  dx}
+  I_3 = \int_{-\infty}^{a}{f(x) \\, dx}
   $$
   
  
