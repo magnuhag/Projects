@@ -8,7 +8,15 @@ Hobby projects
   - Python class for doing improper integrals of the type
   
   $$
-  I = \int_{-\infty}^{\infty}{f(x) ; dx}
+  I_1 = \int_{-\infty}^{\infty}{f(x)  dx}
+  $$
+  
+  $$
+  I_2 = \int_{a}^{\infty}{f(x)  dx}
+  $$
+  
+  $$
+  I_1 = \int_{-\infty}^{a}{f(x)  dx}
   $$
   
  
