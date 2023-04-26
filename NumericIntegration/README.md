@@ -5,15 +5,15 @@ or simply solve difficult/ impossible integrals when the integral was simply "in
 This class uses the following transformations to compute integrals
 
 $$
-\int\_{-\infty}^{\infty}{f(x) dx}=\int\_{-1}^1{f\Biggr(\frac{t}{1-t^2}\Biggr)\frac{1+t^2}{(1-t^2)^2}dt} = \int\_{-1}^1{g(t) \\,dt}
+\int\_{-\infty}^{\infty}{f(x) dx}=\int\_{-1}^1{f\Biggr(\frac{t}{1-t^2}\Biggr)\frac{1+t^2}{(1-t^2)^2} \\, dt} = \int\_{-1}^1{g(t) \\,dt}
 $$
 
 $$
-\int_{a}^{\infty}f(x)dx = \int_{0}^{1}f\Biggr(a+\frac{t}{1-t}\Biggr)\frac{1}{(1-t)^2}dt=\int_{0}^{1}{g(t) \\, dt}
+\int_{a}^{\infty}f(x)dx = \int_{0}^{1}{f\Biggr(a+\frac{t}{1-t}\Biggr)\frac{1}{(1-t)^2} \\, dt}=\int_{0}^{1}{g(t) \\, dt}
 $$
 
 $$
-\int_{-\infty}^{a}f(x)dx= \int_{0}^{1}f\Biggr(a-\frac{1-t}{t}\Biggr)\frac{1}{t^2}dt =\int_{0}^{1}{g(t)\\, dt}
+\int_{-\infty}^{a}f(x)dx= \int_{0}^{1}{f\Biggr(a-\frac{1-t}{t}\Biggr)\frac{1}{t^2} \\, dt} =\int_{0}^{1}{g(t)\\, dt}
 $$
 
 These transforms are fairly limited when it comes to most rational functions I've encountered. Also there can be som problems with the limits where the integrand may be undefined (at $t=\pm 1$). As such I have elected to let the $t$-values approach the limits, but never equal them. This "approaching" of the limits is done with the parameter `delta` ($\delta$), and works like this:
