@@ -39,7 +39,7 @@ class integral_solver:
         Otherwise this method simply evaluates f(x).
     """
 
-    f: type(lambda x:x)
+    f: function 
     a: float
     b: float
     n: int
@@ -96,11 +96,10 @@ class integral_solver:
         integral
         """
         self.func_eval()
-        a = njksdv
         integral = np.sum(self.integrand)*self.dt
         return integral
 
-    def plot(self, orig = False, trans = True):
+    def plot(self, ax: list, orig = False, trans = True):
         """plot(orig = False, trans = True)
         Plots either original function, transformed function, or both.
         Useful for visualizing the transformed function
@@ -117,7 +116,7 @@ class integral_solver:
         if orig == True:
             plt.plot(self.t, self.f(self.t), label = "original f(x)")
 
-        if self.transformed == True and trans == True:
+        if trans == True:
             plt.plot(self.t, self.integrand, label = "transformed f(x)")
 
         plt.xlabel("x")
