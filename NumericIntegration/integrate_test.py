@@ -1,4 +1,4 @@
-from integrator import IntegralSolver
+from integrator import Riemann
 import numpy as np
 
 def integrand(x):
@@ -9,12 +9,12 @@ def integrand(x):
 
 analyticSolution = np.sqrt(np.pi)
 
-integral = IntegralSolver(integrand, float("-inf"), float("inf"), 1000)
-integralVal = integral.riemann()
+integralVal = Riemann(integrand, float("-inf"), float("inf"), 1000).compute()
+
 print("Numerical solution = %.4g. Analytic solution = %.4g" %(integralVal, analyticSolution))
 
 error = np.abs(integralVal-analyticSolution)
 
-print("Error = %g" %error)
+a = Riemann(integrand, float("-inf"), float("inf"), 1000)
 
-integral.plot(orig = False, trans = False)
+print("kølle")

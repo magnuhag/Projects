@@ -36,12 +36,6 @@ class IntegralSolver:
         article explains the method in the "Change of interval"
         section: https://en.wikipedia.org/wiki/Gaussian_quadrature.
         Otherwise this method simply evaluates f(x).
-
-    riemann():
-        Integrates function from func_eval() method using a Riemann sum
-
-    plot(ax: list, orig = True, trans = False):
-        Can plot original function and/ or transformed function
     """
     f: callable
     a: float
@@ -80,24 +74,41 @@ class IntegralSolver:
         self.integrand = evaluatedFunction
         self.dt = self.t[1]-self.t[0]
 
-    def riemann(self):
-        """riemann()
-        Uses Riemann sum to approximate integral
+@dataclass
+class Riemann(IntegralSolver):
+    """
+    A child class to IntegralSolver. Estimates the integral using 
+    a Riemann sum.
 
-        Parameters
-        ----------
-        None
+    Attributes
+    ----------
+    f (function/ callable) : Integrand to be integrated
 
-        Returns
-        -------
-        integral
-        """
+    a (float) : Lower integration limit
+
+    b (float) : Upper integration limit
+
+    n (int) : Number of subdivisions in Riemann sum 
+
+    delta (float) : Small number added to/ subtracted from integration
+                    limits to avoid divide by zero errors.
+
+    Methods
+    -------
+    None.
+    """
+
+    def compute(self):
         self.func_eval()
         integral = np.sum(self.integrand)*self.dt
         return integral
+    def __repr__(self):
+        return self.integrand
 
+"""
     def plot(self, orig = False, trans = True, ax: list = []):
-        """plot(ax: list, orig = False, trans = True)
+        
+        plot(ax: list, orig = False, trans = True)
         Plots either original function, transformed function, or both.
         Useful for visualizing the transformed function.
 
@@ -112,7 +123,6 @@ class IntegralSolver:
 
         ax (list) : Specify domain of x for plotting f(x) (original function)
 
-        """
 
         if orig == True:
             try:
@@ -141,8 +151,4 @@ class IntegralSolver:
             ax2.plot(self.t, self.integrand)
             ax2.set_title("Transformed Function")
             plt.show()
-        
-        
-
-
-
+"""      
