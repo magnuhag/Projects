@@ -5,11 +5,11 @@ or simply solve difficult/ impossible integrals when the integral was simply "in
 This class uses the following transformations to compute integrals
 
 $$
-\int\_{-\infty}^{\infty}{f(x) dx}=\int\_{-1}^1{f\Biggr(\frac{t}{1-t^2}\Biggr)\frac{1+t^2}{(1-t^2)^2}dt}
+\int\_{-\infty}^{\infty}{f(x) dx}=\int\_{-1}^1{f\Biggr(\frac{t}{1-t^2}\Biggr)\frac{1+t^2}{(1-t^2)^2}dt} = \int\_{-1}^1{g(t) \\,dt}
 $$
 
 $$
-\int_{a}^{\infty}f(x)dx = \int_{0}^{1}f\Biggr(a+\frac{t}{1-t}\Biggr)\frac{1}{(1-t)^2}dt
+\int_{a}^{\infty}f(x)dx = \int_{0}^{1} g(t) \\, dt}
 $$
 
 $$
