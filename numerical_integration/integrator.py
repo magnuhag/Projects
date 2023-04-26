@@ -4,29 +4,28 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 @dataclass
-class integral_solver:
+class IntegralSolver:
     """
     A class to perform numerical integration. Can do
     both proper and improper integrals. To do improper
     integrals, the integration boundry approaching infinity
-    must be provided like this: a = float(inf). As of now
+    must be provided like this: a = float("inf"). As of now
     this class only provides the option to do Riemann integrals
-    of functions f : R->R. Will perhaps add other methods
+    of functions f : x->R. Will perhaps add other methods
     that can integrate functions like f: R^n -> R^m.
 
     Attributes
     ----------
-    f : function
-        Integrand to be integrated
-    a : float
-        lower integration limit
-    b : float
-        upper integration limit
-    n : int
-        number of subdivisions in Riemann sum
-    delta: float
-        small number added to/ subtracted from integration
-        limits to avoid divide by zero errors.
+    f (function/ callable) : Integrand to be integrated
+
+    a (float) : Lower integration limit
+
+    b (float) : Upper integration limit
+
+    n (int) : Number of subdivisions in Riemann sum 
+
+    delta (float) : Small number added to/ subtracted from integration
+                    limits to avoid divide by zero errors.
 
     Methods
     -------
@@ -37,13 +36,19 @@ class integral_solver:
         article explains the method in the "Change of interval"
         section: https://en.wikipedia.org/wiki/Gaussian_quadrature.
         Otherwise this method simply evaluates f(x).
-    """
 
-    f: function 
+    riemann():
+        Integrates function from func_eval() method using a Riemann sum
+
+    plot(ax: list, orig = True, trans = False):
+        Can plot original function and/ or transformed function
+    """
+    f: callable
     a: float
     b: float
     n: int
     delta: float = 10**(-10)
+
 
     def func_eval(self):
         """ func_eval()
@@ -54,33 +59,25 @@ class integral_solver:
         ----------
         None
         """
-        #If-check to see if we're doing improper integral. If-check
-        #can break if a and b are switched, for example in a = float(-inf).
-        #But if that is done, integral will be wrong anyways.
-        if self.a != float("-inf") and self.b != ("inf"):
-            self.transformed == False
-        else:
-            self.transformed == True
-            evaluated_function = np.zeros(self.n)
 
         if self.a == float("-inf") and self.b == float("inf"):
             t = np.linspace(-1+self.delta, 1-self.delta, self.n)
-            evaluated_function = self.f(t/(1-t**2))*(1+t**2)/(1-t**2)**2
+            evaluatedFunction = self.f(t/(1-t**2))*(1+t**2)/(1-t**2)**2
 
         elif self.a != float("-inf") and self.b == float("inf"):
             t = np.linspace(0+self.delta, 1-self.delta, self.n)
-            evaluated_function = self.f(self.a+t/(1-t))*1/(1-t)**2
+            evaluatedFunction = self.f(self.a+t/(1-t))*1/(1-t)**2
 
         elif self.a == float("-inf") and self.b != float("inf"):
             t = np.linspace(0+self.delta, 1-self.delta, self.n)
-            evaluated_function= self.f(self.b-(1-t)/t)*1/t**2
+            evaluatedFunction= self.f(self.b-(1-t)/t)*1/t**2
 
         else:
             t = np.linspace(a, b, n)
-            evaluated_function = self.f(t)
+            evaluatedFunction = self.f(t)
 
         self.t = t
-        self.integrand = evaluated_function
+        self.integrand = evaluatedFunction
         self.dt = self.t[1]-self.t[0]
 
     def riemann(self):
@@ -99,27 +96,53 @@ class integral_solver:
         integral = np.sum(self.integrand)*self.dt
         return integral
 
-    def plot(self, ax: list, orig = False, trans = True):
-        """plot(orig = False, trans = True)
+    def plot(self, orig = False, trans = True, ax: list = []):
+        """plot(ax: list, orig = False, trans = True)
         Plots either original function, transformed function, or both.
-        Useful for visualizing the transformed function
+        Useful for visualizing the transformed function.
 
         Prameters
         ---------
-        orig : Bool, optional
-            plot original function (non-transformed)
-        trans : Bool, optional
-            plot transformed function. Only applicable when integration
-            bounderies are float("inf") or float("-inf")
+
+        orig (Bool) : Optional. Plot original function (non-transformed)
+
+        trans (Bool) : Optional. Plot transformed function. Only 
+                       applicable when integration
+                       bounderies are float("inf") or float("-inf")
+
+        ax (list) : Specify domain of x for plotting f(x) (original function)
+
         """
 
         if orig == True:
-            plt.plot(self.t, self.f(self.t), label = "original f(x)")
+            try:
+                x = np.linspace(ax[0], ax[1], len(self.t)) 
+            except IndexError:
+                x = self.t
+            if trans == False:      
+                fig, ax = plt.subplots()
+                ax.plot(x, self.f(x), label = "f(x)")
+                ax.set_title("Original function")
+                ax.legend()
+                plt.show()
 
-        if trans == True:
-            plt.plot(self.t, self.integrand, label = "transformed f(x)")
+        elif orig != trans:
+            print("balle")
+            fig, ax = plt.subplots()
+            ax.plot(self.t, self.integrand, label = "g(t)")
+            ax.set_title("Transformed function")
+            ax.legend()
+            plt.show()
 
-        plt.xlabel("x")
-        plt.ylabel("f(x)")
-        plt.legend()
-        plt.show()
+        if orig == trans == True:
+            fig, (ax1, ax2) = plt.subplots(2)
+            ax1.plot(x, self.f(x))
+            ax1.set_title("Original Function")
+            ax2.plot(self.t, self.integrand)
+            ax2.set_title("Transformed Function")
+            plt.show()
+        
+        
+
+
+
