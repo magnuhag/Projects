@@ -15,6 +15,4 @@ print("Numerical solution = %.4g. Analytic solution = %.4g" %(integralVal, analy
 
 error = np.abs(integralVal-analyticSolution)
 
-a = Riemann(integrand, float("-inf"), float("inf"), 1000)
 
-print("kølle")
