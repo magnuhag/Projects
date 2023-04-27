@@ -94,6 +94,7 @@ class Riemann(IntegralSolver):
         spaced Δt (or Δx_i, if you will).
     """
     def compute(self):
+        """return the value of the integral"""
         self.func_eval()
         integral = np.sum(self.integrand)*self.dt
         return integral

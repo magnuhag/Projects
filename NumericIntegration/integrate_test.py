@@ -6,14 +6,16 @@ from integrator import Riemann
 def main():
 
     #Integral we want to compute.
-    f = lambda x: np.exp(-x**2)
+    def function(x):
+        return np.exp(-x**2)
+
     #Analytic solution to integral
     analyticSolution = np.sqrt(np.pi)
 
    
     
 
-    integral = Riemann(f, float("-inf"), float("inf"), 1000)
+    integral = Riemann(function, float("-inf"), float("inf"), 1000)
     integralVal = integral.compute()
 
 
@@ -34,3 +36,4 @@ def main():
     """
 if __name__ =="__main__":
     main()
+    
