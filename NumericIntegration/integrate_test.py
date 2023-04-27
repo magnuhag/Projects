@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from integrator import Riemann
+from integrator import IntegralSolver
 
 def main():
 
@@ -15,8 +15,8 @@ def main():
    
     
 
-    integral = Riemann(function, float("-inf"), float("inf"), 1000)
-    integralVal = integral.compute()
+    integral = IntegralSolver(function, float("-inf"), float("inf"), 1000)
+    integralVal = integral.riemann()
 
 
     print(f"Numeric solution = {integralVal:.4f}\
@@ -27,6 +27,7 @@ def main():
 
     t = integral.t
     transFunc = integral.integrand
+    
     """
     plt.plot(t, transFunc)
     plt.xlabel("t")

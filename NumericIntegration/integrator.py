@@ -5,48 +5,53 @@ import numpy as np
 
 @dataclass
 class IntegralSolver:
-    """
-    A class to perform numerical integration. Can do
-    both proper and improper integrals. To do improper
-    integrals, the integration boundry approaching infinity
-    must be provided like this: a = float("inf"). As of now
-    this class only provides the option to do Riemann integrals
-    of functions f : x->R. Will perhaps add other methods
-    that can integrate functions like f: R^n -> R^m.
 
-    Attributes
-    ----------
-    f (function/ callable) : Function to be integrated (integrand)
+    def __init__(self, f: callable, a: float, b: float, n: int, 
+                 delta = np.finfo(float).eps):
+        """
+        A class to perform numerical integration. Can do
+        both proper and improper integrals. To do improper
+        integrals, the integration boundry approaching infinity
+        must be provided like this: a = float("inf"). As of now
+        this class only provides the option to do Riemann integrals
+        of functions f : x->R. Will perhaps add other methods
+        that can integrate functions like f: R^n -> R^m.
 
-    a (float) : Lower integration limit
+        Attributes
+        ----------
+        f (function/ callable) : Function to be integrated (integrand)
 
-    b (float) : Upper integration limit
+        a (float) : Lower integration limit
 
-    n (int) : Number of subdivisions in Riemann sum 
+        b (float) : Upper integration limit
 
-    delta (float) : Small number added to/ subtracted from integration
-                    limits to avoid divide by zero errors. This value 
-                    is defaulted to machine epsilon. Be careful!
+        n (int) : Number of subdivisions in Riemann sum 
 
-    integrand (None) : 
+        delta (float) : Small number added to/ subtracted from integration
+                        limits to avoid divide by zero errors. This value 
+                        is defaulted to machine epsilon. Be careful!
 
-    Methods
-    -------
-    func_eval():
-        Prepares function f for integration by performing
-        a change of interval, if integral is improper,
-        to an interval somwwhere between (-1,1). This Wiki
-        article explains the method in the "Change of interval"
-        section: https://en.wikipedia.org/wiki/Gaussian_quadrature.
-        Otherwise this method simply evaluates f(x).
-    """
-    f: callable
-    a: float
-    b: float
-    n: int
-    delta: float = np.finfo(float).eps
-    integrand: callable = None
+        integrand (None) : 
 
+        Methods
+        -------
+        func_eval():
+            Prepares function f for integration by performing
+            a change of interval, if integral is improper,
+            to an interval somwwhere between (-1,1). This Wiki
+            article explains the method in the "Change of interval"
+            section: https://en.wikipedia.org/wiki/Gaussian_quadrature.
+            Otherwise this method simply evaluates f(x).
+
+        riemann():
+            Evalutes the left Riemann sum.
+        """
+        self.f = f
+        self.a = a 
+        self.b = b 
+        self.n = n 
+        self.delta = delta
+        self.integrand = None
 
     def func_eval(self):
         """ func_eval()
@@ -78,23 +83,8 @@ class IntegralSolver:
         self.integrand = evaluatedFunction
         self.dt = self.t[1]-self.t[0]
 
-
-@dataclass
-class Riemann(IntegralSolver):
-    """ 
-    A child class of IntegralSolver. Estimates the integral using 
-    a Riemann sum.
-
-    Read ``help(IntegralSolver)`` 
-
-    Methods
-    ----------
-    compute():
-        Computes the integral using the left Riemann sum with equally 
-        spaced Δt (or Δx_i, if you will).
-    """
-    def compute(self):
-        """return the value of the integral"""
+    def riemann(self):
+        """Returns value of integral"""
         self.func_eval()
         integral = np.sum(self.integrand)*self.dt
         return integral
