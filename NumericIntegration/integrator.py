@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 
 import numpy as np
-from docstring_inheritance import NumpyDocstringInheritanceMeta
 
 
 @dataclass
@@ -44,6 +43,7 @@ class IntegralSolver:
     b: float
     n: int
     delta: float = np.finfo(float).eps
+    integrand: callable = None
 
 
     def func_eval(self):
@@ -91,10 +91,8 @@ class Riemann(IntegralSolver):
         Computes the integral using the left Riemann sum with equally 
         spaced Δt (or Δx_i, if you will).
     """
-
-
-
     def compute(self):
         self.func_eval()
         integral = np.sum(self.integrand)*self.dt
         return integral
+

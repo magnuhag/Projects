@@ -17,18 +17,14 @@ def main():
     integralVal = integral.compute()
 
 
-    print("Numeric solution = %.4g.\
-          Analytic solution = %.4g" %(integralVal, analyticSolution))
+    print(f"Numeric solution = {integralVal:.4f}\
+          Analytic solution = {analyticSolution:.4f}")
 
     error = np.abs(integralVal-analyticSolution)
-    print("The error ε = %g" %error)
-
-
+    print(f"the error ε = {error:.4g}")
 
     t = integral.t
     transFunc = integral.integrand
-
-    help(Riemann)
     """
     plt.plot(t, transFunc)
     plt.xlabel("t")
