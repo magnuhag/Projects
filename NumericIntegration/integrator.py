@@ -73,6 +73,7 @@ class IntegralSolver:
         self.t = t
         self.integrand = evaluatedFunction
         self.dt = self.t[1]-self.t[0]
+        return
 
 @dataclass
 class Riemann(IntegralSolver):
