@@ -28,6 +28,8 @@ class IntegralSolver:
                     limits to avoid divide by zero errors. This value 
                     is defaulted to machine epsilon. Be careful!
 
+    integrand (None) : 
+
     Methods
     -------
     func_eval():
