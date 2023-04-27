@@ -10,7 +10,10 @@ def main():
     #Analytic solution to integral
     analyticSolution = np.sqrt(np.pi)
 
-    integral = Riemann(f, float("-inf"), float("inf"), 1000, delta = 10**(-15))
+   
+    
+
+    integral = Riemann(f, float("-inf"), float("inf"), 1000)
     integralVal = integral.compute()
 
 
@@ -20,14 +23,18 @@ def main():
     error = np.abs(integralVal-analyticSolution)
     print("The error ε = %g" %error)
 
+
+
     t = integral.t
     transFunc = integral.integrand
 
+    help(Riemann)
+    """
     plt.plot(t, transFunc)
     plt.xlabel("t")
     plt.ylabel("g(x)")
     plt.title("Plot of transformed function")
     plt.show()
-
+    """
 if __name__ =="__main__":
     main()

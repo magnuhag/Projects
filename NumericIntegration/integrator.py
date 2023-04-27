@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 
 import numpy as np
-import matplotlib.pyplot as plt
+from docstring_inheritance import NumpyDocstringInheritanceMeta
+
 
 @dataclass
 class IntegralSolver:
@@ -16,7 +17,7 @@ class IntegralSolver:
 
     Attributes
     ----------
-    f (function/ callable) : Integrand to be integrated
+    f (function/ callable) : Function to be integrated (integrand)
 
     a (float) : Lower integration limit
 
@@ -25,7 +26,8 @@ class IntegralSolver:
     n (int) : Number of subdivisions in Riemann sum 
 
     delta (float) : Small number added to/ subtracted from integration
-                    limits to avoid divide by zero errors.
+                    limits to avoid divide by zero errors. This value 
+                    is defaulted to machine epsilon. Be careful!
 
     Methods
     -------
@@ -41,7 +43,7 @@ class IntegralSolver:
     a: float
     b: float
     n: int
-    delta: float = 10**(-10)
+    delta: float = np.finfo(float).eps
 
 
     def func_eval(self):
@@ -73,31 +75,24 @@ class IntegralSolver:
         self.t = t
         self.integrand = evaluatedFunction
         self.dt = self.t[1]-self.t[0]
-        return
+
 
 @dataclass
 class Riemann(IntegralSolver):
-    """
-    A child class to IntegralSolver. Estimates the integral using 
+    """ 
+    A child class of IntegralSolver. Estimates the integral using 
     a Riemann sum.
 
-    Attributes
-    ----------
-    f (function/ callable) : Integrand to be integrated
-
-    a (float) : Lower integration limit
-
-    b (float) : Upper integration limit
-
-    n (int) : Number of subdivisions in Riemann sum 
-
-    delta (float) : Small number added to/ subtracted from integration
-                    limits to avoid divide by zero errors.
+    Read ``help(IntegralSolver)`` 
 
     Methods
-    -------
-    None.
+    ----------
+    compute():
+        Computes the integral using the left Riemann sum with equally 
+        spaced Δt (or Δx_i, if you will).
     """
+
+
 
     def compute(self):
         self.func_eval()
