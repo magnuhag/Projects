@@ -3,7 +3,6 @@ from dataclasses import dataclass
 import numpy as np
 import matplotlib.pyplot as plt
 
-@dataclass
 class integral_solver:
     """
     A class to perform numerical integration. Can do
