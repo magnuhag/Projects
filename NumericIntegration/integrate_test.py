@@ -27,14 +27,13 @@ def main():
 
     t = integral.t
     transFunc = integral.integrand
-    
-    """
+
     plt.plot(t, transFunc)
     plt.xlabel("t")
     plt.ylabel("g(x)")
     plt.title("Plot of transformed function")
     plt.show()
-    """
+  
 if __name__ =="__main__":
     main()
     

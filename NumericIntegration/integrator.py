@@ -1,9 +1,5 @@
-from dataclasses import dataclass
-
 import numpy as np
 
-
-@dataclass
 class IntegralSolver:
 
     def __init__(self, f: callable, a: float, b: float, n: int, 
