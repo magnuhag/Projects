@@ -3,3 +3,5 @@ NeuralNetwork/.ipynb_checkpoints/Wengert_list-checkpoint.ipynb
 NeuralNetwork/.ipynb_checkpoints/Neural Network-checkpoint.ipynb
 .DS_Store
 NeuralNetwork/__pycache__/NeuralNetwork.cpython-310.pyc
+NeuralNetwork/__pycache__/NNC.cpython-310.pyc
+NumericIntegration/__pycache__/integrator.cpython-310.pyc
