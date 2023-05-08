@@ -7,11 +7,17 @@ class IntegralSolver:
         """
         A class to perform numerical integration. Can do
         both proper and improper integrals. To do improper
-        integrals, the integration boundry approaching infinity
-        must be provided like this: a = float("inf"). As of now
-        this class only provides the option to do Riemann integrals
-        of functions f : x->R. Will perhaps add other methods
-        that can integrate functions like f: R^n -> R^m.
+        integrals, the integration boundry (or boundaries) approaching 
+        infinity must be provided like this: 
+
+        a = float("-inf")
+        b = float("inf")
+
+        As of now this class only provides the 
+        option to do Riemann and Trapezoidal integrals of functions 
+        of the type f : x->R. 
+        Will perhaps add other methods that can integrate functions 
+        like f: R^n -> R^m.
 
         Attributes
         ----------
@@ -93,6 +99,8 @@ class IntegralSolver:
         partialSum = 0
         for i in range(1, self.n):
             partialSum += (self.integrand[i-1]+self.integrand[i])
+        #Factoring out this part to save FLOPs. Perhaps needless optimization
+        #but we might avoid compounding round-off error 
         integral = partialSum/2*self.dt
         return integral
         
