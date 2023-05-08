@@ -20,7 +20,7 @@ class NeuralNet:
 
         else:
             #Should be obvious to anyone attempting to use this class. 
-            # Still: might catch a typo
+            #Still, might catch a typo
             raise TypeError("nNeurons must be of type int and greater\
                              than or equal to 1")
 
@@ -42,11 +42,6 @@ class NeuralNet:
 
         self.biases.append(np.random.randn(nNeurons)*0.01)
 
-        #For each added layer we append 0 to the lists
-        #so that they get the appropriate length
-        self.A.append(0)
-        self.Z.append(0)
-        self.delta.append(0)
 
     def activation_function(self, act):
 
@@ -138,7 +133,9 @@ class NeuralNet:
 
     def train(self, X, y, epochs, loss, metric, batchSize = 10,
               numIters = 100, etaInit = 10**(-4), decay = 0.1):
-
+        #Creating lists to contain A, Z, and Delta matrices.
+        self.A = self.Z = self.delta = [0]*len(self.layers)
+        
         diff = self.diff(self.loss_function(loss), self.actFuncs[-1])
 
         dataIndices = len(X)
