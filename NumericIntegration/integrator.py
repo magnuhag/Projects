@@ -87,3 +87,11 @@ class IntegralSolver:
         integral = np.sum(self.integrand)*self.dt
         return integral
 
+    def trapezoidal(self):
+        """Returns value of integral as computed by trapezoidal rule"""
+        self.func_eval()
+        integral = 0
+        for i in range(1, self.n):
+            integral += (self.integrand[i-1]+self.integrand[i])/2*self.dt
+        return integral
+        
