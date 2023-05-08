@@ -13,7 +13,7 @@ def main():
     analyticSolution = np.sqrt(np.pi)
 
     integral = IntegralSolver(function, float("-inf"), float("inf"), 1000)
-    integralVal = integral.riemann()
+    integralVal = integral.trapezoidal()
 
     print(f"Numeric solution = {integralVal:.4f}\
           Analytic solution = {analyticSolution:.4f}")
@@ -23,13 +23,13 @@ def main():
 
     t = integral.t
     transFunc = integral.integrand
-
+    """
     plt.plot(t, transFunc)
     plt.xlabel("t")
     plt.ylabel("g(x)")
     plt.title("Plot of transformed function")
     plt.show()
-  
+    """
 if __name__ =="__main__":
     main()
     
