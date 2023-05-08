@@ -46,7 +46,8 @@ class IntegralSolver:
             to an interval somewhere between (-1,1). This Wiki
             article explains the method in the "Change of interval"
             section: https://en.wikipedia.org/wiki/Gaussian_quadrature.
-            Otherwise this method simply evaluates f(x).
+            Otherwise this method simply evaluates f(x). A lot of mathemtical
+            detail is swept under the rug her, or is simply ignored.
 
         riemann():
             Evalutes the left Riemann sum.
@@ -94,7 +95,7 @@ class IntegralSolver:
         self.dt = self.t[1]-self.t[0]
 
     def riemann(self):
-        """Returns value of integral as computed by Riemann sum as"""
+        """Returns value of integral as computed by Riemann sum """
         self.func_eval()
         integral = np.sum(self.integrand)*self.dt
         return integral
