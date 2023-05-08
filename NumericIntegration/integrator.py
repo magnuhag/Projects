@@ -82,7 +82,7 @@ class IntegralSolver:
         self.dt = self.t[1]-self.t[0]
 
     def riemann(self):
-        """Returns value of integral"""
+        """Returns value of integral as computed by Riemann sum as"""
         self.func_eval()
         integral = np.sum(self.integrand)*self.dt
         return integral
