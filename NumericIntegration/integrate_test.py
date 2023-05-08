@@ -3,11 +3,11 @@ import matplotlib.pyplot as plt
 
 from integrator import IntegralSolver
 
-def main():
+#Function we want to integrate.
+def function(x):
+    return np.exp(-x**2)
 
-    #Integral we want to compute.
-    def function(x):
-        return np.exp(-x**2)
+def main():
 
     #Analytic solution to integral
     analyticSolution = np.sqrt(np.pi)
