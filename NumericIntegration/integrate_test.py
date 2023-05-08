@@ -12,12 +12,8 @@ def main():
     #Analytic solution to integral
     analyticSolution = np.sqrt(np.pi)
 
-   
-    
-
     integral = IntegralSolver(function, float("-inf"), float("inf"), 1000)
     integralVal = integral.riemann()
-
 
     print(f"Numeric solution = {integralVal:.4f}\
           Analytic solution = {analyticSolution:.4f}")
