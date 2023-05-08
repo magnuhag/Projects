@@ -20,4 +20,4 @@
   I_3 = \int_{-\infty}^{a}{f(x) \\, dx}
   $$
 
-None of these are by any means finished.
+None of these projects are by any means finished.
