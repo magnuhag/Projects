@@ -33,7 +33,10 @@ class IntegralSolver:
                         limits to avoid divide by zero errors. This value 
                         is defaulted to machine epsilon. Perhaps not ideal.
 
-        integrand (None) : 
+        integrand (None) : Initialized by the constructor to be None type.
+                           When calling func_eval(), integrand will be a
+                           numpy array containing values of the evaluated 
+                           function.
 
         Methods
         -------
@@ -47,6 +50,9 @@ class IntegralSolver:
 
         riemann():
             Evalutes the left Riemann sum.
+        
+        trapezoidal():
+            Uses trapezoidal rule to evaluate integral.
         """
         self.f = f
         self.a = a 
