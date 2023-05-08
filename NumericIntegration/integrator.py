@@ -1,9 +1,10 @@
 import numpy as np
 
+@dataclass
 class IntegralSolver:
 
     def __init__(self, f: callable, a: float, b: float, n: int, 
-                 delta = np.finfo(float).eps):
+                 delta: float = np.finfo(float).eps):
         """
         A class to perform numerical integration. Can do
         both proper and improper integrals. To do improper
@@ -25,7 +26,7 @@ class IntegralSolver:
 
         delta (float) : Small number added to/ subtracted from integration
                         limits to avoid divide by zero errors. This value 
-                        is defaulted to machine epsilon. Be careful!
+                        is defaulted to machine epsilon. Perhaps not ideal.
 
         integrand (None) : 
 
@@ -34,7 +35,7 @@ class IntegralSolver:
         func_eval():
             Prepares function f for integration by performing
             a change of interval, if integral is improper,
-            to an interval somwwhere between (-1,1). This Wiki
+            to an interval somewhere between (-1,1). This Wiki
             article explains the method in the "Change of interval"
             section: https://en.wikipedia.org/wiki/Gaussian_quadrature.
             Otherwise this method simply evaluates f(x).
@@ -59,7 +60,9 @@ class IntegralSolver:
         None
         """
 
-        if self.a == float("-inf") and self.b == float("inf"):
+        assert self.a < self.b, "a must be smaller than b"
+            
+        if abs(self.a) == self.b == float("inf"):   
             t = np.linspace(-1+self.delta, 1-self.delta, self.n)
             evaluatedFunction = self.f(t/(1-t**2))*(1+t**2)/(1-t**2)**2
 
