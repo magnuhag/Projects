@@ -451,7 +451,7 @@ class NeuralNet:
 
         Returns
         -------
-        metric : numpy array
+        metric : float
         """
 
         if a == "accuracy":
