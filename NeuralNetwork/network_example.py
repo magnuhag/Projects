@@ -61,6 +61,5 @@ def main():
     testAcc = s/len(yTest)
     print(f"test accuracy = {testAcc}")
 
-
 if __name__ == "__main__":
     main()
