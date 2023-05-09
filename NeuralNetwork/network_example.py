@@ -48,13 +48,8 @@ def main():
               batchSize = 10, numIters = 100)
 
     tTrainStop = perf_counter()
-
-    print(tTrainStop-tTrainStart)
-
-    #Reminder of args and kwargs
-    #train(self, X, y, epochs, loss, metric, batchSize = 10, numIters = 50,
-    #      etaInit = 10**(-4), decay = 0.1)
-
+    execTime = tTrainStop-tTrainStart
+    print(f"The training took {execTime} seconds")
 
     pred = Net.predict(XTest)
     s = 0
@@ -63,7 +58,9 @@ def main():
         guess = np.argmax(pred[i])
         if true == guess:
             s += 1
-    print("test accuracy is " + str(s/len(yTest)))
+    testAcc = s/len(yTest)
+    print(f"test accuracy = {testAcc}")
+
 
 if __name__ == "__main__":
     main()
