@@ -416,8 +416,8 @@ class NeuralNet:
                 eta1 = eta(etaInit, j, decay)
                 #Randomly choose datapoints to use as mini-batches
                 chosenDatapoints = np.random.choice(dataIndices, 
-                                                     size = batchSize, 
-                                                     replace = False)
+                                                    size = batchSize, 
+                                                    replace = False)
                 #Making mini-batches
                 XMini = X[chosenDatapoints]
                 yMini = y[chosenDatapoints]
@@ -432,7 +432,7 @@ class NeuralNet:
             predicted = self.predict(XMini)
             metricVal = np.mean(self.metrics(predicted, yMini, metric))
             lossVal = np.mean(self.loss_function(loss)(predicted, yMini))
-            print(f"mean loss = {lossVal:.3f} ---------- {metric:s} = {metricVal:.2f} at epoch {i}")
+            print(f"mean loss = {lossVal:.3f} ---------- \{metric:s} = {metricVal:.2f} at epoch {i}")
 
     def metrics(self, yHat, y, a):
         """metrics(yHat, y, a)
