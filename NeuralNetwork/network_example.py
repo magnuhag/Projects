@@ -28,37 +28,42 @@ def fix_data():
     Y = to_categorical_numpy(labels)
     return X, Y
 
-X, Y = fix_data()
-XTrain, XTest, yTrain, yTest = train_test_split(X, Y, test_size = 0.2)
+def main():
 
-inSize = len(X[0])
-out_size = len(yTest[0])
+    X, Y = fix_data()
+    XTrain, XTest, yTrain, yTest = train_test_split(X, Y, test_size = 0.2)
 
-Net = NeuralNet()
-#We don't need anything fancy for this demonstration
-Net.add(inSize, "sigmoid", inputSize = inSize)
-Net.add(10, "softmax")
+    inSize = len(X[0])
+    out_size = len(yTest[0])
 
-tTrainStart = perf_counter()
+    Net = NeuralNet()
+    #We don't need anything fancy for this demonstration
+    Net.add(inSize, "sigmoid", inputSize = inSize)
+    Net.add(10, "softmax")
 
-#We're leaving batch size at a modest 10 as to not having to spend all day training the network
-Net.train(XTrain, yTrain, 100, "categorical_cross", "accuracy", 
-          batchSize = 10, numIters = 100)
+    tTrainStart = perf_counter()
 
-tTrainStop = perf_counter()
+    #We're leaving batch size at a modest 10 as to not having to spend all day training the network
+    Net.train(XTrain, yTrain, 100, "categorical_cross", "accuracy", 
+              batchSize = 10, numIters = 100)
 
-print(tTrainStop-tTrainStart)
+    tTrainStop = perf_counter()
 
-#Reminder of args and kwargs
-#train(self, X, y, epochs, loss, metric, batchSize = 10, numIters = 50,
-#      etaInit = 10**(-4), decay = 0.1)
+    print(tTrainStop-tTrainStart)
+
+    #Reminder of args and kwargs
+    #train(self, X, y, epochs, loss, metric, batchSize = 10, numIters = 50,
+    #      etaInit = 10**(-4), decay = 0.1)
 
 
-pred = Net.predict(XTest)
-s = 0
-for i in range(len(XTest)):
-    true = np.argmax(yTest[i])
-    guess = np.argmax(pred[i])
-    if true == guess:
-        s += 1
-print("test accuracy is " + str(s/len(yTest)))
+    pred = Net.predict(XTest)
+    s = 0
+    for i in range(len(XTest)):
+        true = np.argmax(yTest[i])
+        guess = np.argmax(pred[i])
+        if true == guess:
+            s += 1
+    print("test accuracy is " + str(s/len(yTest)))
+
+if __name__ == "__main__":
+    main()
