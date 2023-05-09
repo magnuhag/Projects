@@ -22,4 +22,4 @@ $$
 t \in [-1+\delta, 1-\delta]
 $$
 
-The parameter `delta` is by default set to $\delta = 10^{-10}$ but can be altered as the user wishes. If you find this solution unsatisfactory, join the club. And message me when they discorver a good method for numerically evaluating limits.
+The parameter `delta` is by default set to machine epsilon but can be altered as the user wishes. If you find this solution unsatisfactory, join the club. And message me when they discorver a good method for numerically evaluating limits.
