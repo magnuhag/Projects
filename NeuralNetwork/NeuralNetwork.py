@@ -96,7 +96,7 @@ class NeuralNet:
         """
         if isinstance(seed, int):
             np.random.seed(seed)
-        
+
         self.layers = []
         self.actFuncs = []
         self.weights = []
@@ -156,7 +156,7 @@ class NeuralNet:
 
         elif isinstance(inputSize, type(None)):
             self.weights.append(np.random.randn(self.layers[-2], nNeurons)*0.01)
-        #Errrrr, I'll get back to this
+        #Errrrr. Must write something here. I'll get back to this.
         else:
             raise TypeError("Errr")
 
