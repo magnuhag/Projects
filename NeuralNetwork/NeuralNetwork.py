@@ -63,8 +63,8 @@ class NeuralNet:
         the output.
 
     """
-    def __init__(self):
-        """__init__()
+    def __init__(self, seed = None):
+        """__init__(seed = None)
         Creates the following instance attributes
         ----------
         layers : list
@@ -81,17 +81,22 @@ class NeuralNet:
         A : list
             List to hold activation of each layer
         delta : list
-            list to hold delta for each layer
+            List to hold delta for each layer
 
         Parameters
         -------
-        None
+        seed : int
+            Is None by default. Allows user to specify
+            seed for numpy's random number generator
+            which is used in initializing weights.
 
         Returns
         -------
         None
         """
-
+        if isinstance(seed, int):
+            np.random.seed(seed)
+        
         self.layers = []
         self.actFuncs = []
         self.weights = []
@@ -102,8 +107,8 @@ class NeuralNet:
 
     def add(self, nNeurons, actFunc, inputSize = None):
         """add(nNeurons, actFunc, inputSize = None)
-        Sequentially adds layer to network. If first layer
-        inputSize must be supplied; this is not inferred.
+        Sequentially adds layer to network. When addinf first layer
+        inputSize must be provided; this is not inferred.
         Input size can be number of features in feature matrix, or
         more generally the length of axis 1 of X.
         That is, if X is
@@ -198,6 +203,8 @@ class NeuralNet:
                 parameter
         """
 
+        #Should not be assigning lambdas to variables
+        #but it helps readability, I think.
         if act == "sigmoid":
             activ = lambda x: 1/(1+np.exp(-x))
 
