@@ -21,5 +21,10 @@ These transforms are fairly limited when it comes to most rational functions I'v
 $$
 t \in [-1+\delta, 1-\delta]
 $$
+for the case where
+
+$$
+t\in[-1, 1]
+$$
 
 The parameter `delta` is by default set to machine epsilon but can be altered as the user wishes. If you find this solution unsatisfactory, join the club. And message me when they discorver a good method for numerically evaluating limits.
