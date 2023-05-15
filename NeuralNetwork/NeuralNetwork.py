@@ -198,8 +198,7 @@ class NeuralNet:
                 return 1/(1+np.exp(-x))
         elif act == "RELU":
             def activ(x):
-                return
-            activ = lambda x: np.maximum(x, 0)
+                return np.maximum(x, 0)
         elif act == "leaky_RELU":
             def activ(x):
                 return np.maximum(x, 0.01 * x)
@@ -388,7 +387,9 @@ class NeuralNet:
 
         diff = self.diff(self.loss_function(loss), self.actFuncs[-1])
         dataIndices = len(X)
-        eta = lambda etaInit, iteration, decay: etaInit/(1+decay*iteration)
+        
+        def eta(etaInit, iteration, decay):
+            return etaInit/(1+decay*iteration)
 
         for i in range(1, epochs+1):
             for j in range(numIters):
