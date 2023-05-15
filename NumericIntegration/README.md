@@ -21,6 +21,7 @@ These transforms are fairly limited when it comes to most rational functions I'v
 $$
 t \in [-1+\delta, 1-\delta]
 $$
+
 for the case where
 
 $$
