@@ -22,7 +22,7 @@ $$
 t \in [-1+\delta, 1-\delta]
 $$
 
-for the case where
+for the case where $t$ really is
 
 $$
 t\in[-1, 1]
