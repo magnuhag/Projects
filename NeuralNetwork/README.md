@@ -14,9 +14,9 @@ Since the network is currently in development, several problems are currently kn
   
   -The network learns rather slowly. Will eventually add batch norm, dropout, and possibly more. All of this in the far future. Might also be a bug somehwere in the update of biases. Or I use too small batches for training. 
   
-  -The use of python `lists` as "tensors". That is, the weights between two layers are represented by matrices of the type $M\in\mathbb{R}^{n\times m}$. These matrices are contained in lists. This is because it is the easiest way to do it, at least that I've found. But I don't like the solution; it is inelegant. 
+  -The use of python `lists` as "tensors". That is, the weights between two layers are represented by matrices of the type $M\in\mathbb{R}^{n\times m}$. These matrices are contained in the aforementioned `lists`. This is because it is the easiest way to do it, at least that I've found. But I don't like the solution; it is inelegant. 
   
-  -The misuse of the word "tensor". A tensor is a very specific mathematical object, not just any n-dimensional array. An object $T_{j_1,\cdots,j_q}^{i_1,\cdots,i_p}$ is a tensor if the following transformation is true (for an order $p+q$ tensor with $p$ contravariant indices and $q$ covariant indices):
+  -The misuse of the word "tensor". A tensor is a very specific mathematical object, not just any n-dimensional array. An object $T_{j_1,\cdots,j_q}^{i_1,\cdots,i_p}$ is a tensor if the following transformation is true (for a discrete order $p+q$ tensor with $p$ contravariant indices and $q$ covariant indices):
   
 $$
 \hat{T}_{j'_1,\cdots,j'_q}^{i'_1,\cdots,i'_p}=(R^{-1})\_{i_1}^{i'_1}  \cdots  (R^{-1})\_{i_p}^{i'_p}T\_{j_1,\cdots,j_q}^{i_1,\cdots,i_p}R\_{j'_1}^{j_1}\cdots R\_{j'_q}^{j_q}
