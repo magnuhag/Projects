@@ -17,7 +17,7 @@ class IntegralSolver:
         option to do Riemann and Trapezoidal integrals of functions 
         of the type f : x->R. 
         Will perhaps add other methods that can integrate functions 
-        like f: R^n -> R^m.
+        like f: R^n -> R.
 
         Attributes
         ----------
