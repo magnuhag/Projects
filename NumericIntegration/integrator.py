@@ -27,7 +27,7 @@ class IntegralSolver:
 
         b (float) : Upper integration limit
 
-        n (int) : Number of subdivisions in Riemann sum 
+        n (int) : Number of equidistant subdivisions 
 
         delta (float) : Small number added to/ subtracted from integration
                         limits to avoid divide by zero errors. This value 
@@ -55,6 +55,9 @@ class IntegralSolver:
         trapezoidal():
             Uses trapezoidal rule to evaluate integral.
         """
+
+        assert a < b, "a must be smaller than b"
+
         self.f = f
         self.a = a 
         self.b = b 
@@ -72,7 +75,6 @@ class IntegralSolver:
         None
         """
 
-        assert self.a < self.b, "a must be smaller than b"
             
         if abs(self.a) == self.b == float("inf"):   
             t = np.linspace(-1+self.delta, 1-self.delta, self.n)
